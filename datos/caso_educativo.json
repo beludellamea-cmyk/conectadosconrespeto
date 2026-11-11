@@ -1,0 +1,138 @@
+{
+  "project": "Conectados con respeto",
+  "caseTitle": "Una foto, cientos de miradas",
+  "fictionalDisclaimer": "Simulación educativa ficticia. Todas las personas y publicaciones representadas son inventadas.",
+  "mainImage": "imagenes/contenido_real/foto_grupo_ficticio.webp",
+  "altImage": "Cinco estudiantes posan sonrientes para una foto grupal en el pasillo de una escuela.",
+  "studentsAreFictional": true,
+  "characters": {
+    "Sofi": "estudiante que pide retirar la imagen",
+    "Nico": "comparte la imagen sin consultar",
+    "Bruno": "minimiza el pedido y comenta de forma despectiva",
+    "Lara": "informa que la imagen se difundió más",
+    "Mica": "propone respetar el pedido y acompañar"
+  },
+  "post": {
+    "time": "08:05",
+    "author": "Nico",
+    "text": "Les dejo la foto que sacamos en el recreo 😅"
+  },
+  "comments": [
+    {
+      "time": "08:07",
+      "author": "Sofi",
+      "text": "No quería que subieran esa foto. ¿La podés borrar, por favor?"
+    },
+    {
+      "time": "08:10",
+      "author": "Bruno",
+      "text": "Qué exagerada, si es una foto nada más 🙄"
+    },
+    {
+      "time": "08:13",
+      "author": "Lara",
+      "text": "Ya la pasaron a otro grupo. Me llegó recién."
+    },
+    {
+      "time": "08:17",
+      "author": "Mica",
+      "text": "Si Sofi pidió que la borren, tenemos que respetarla."
+    },
+    {
+      "time": "08:20",
+      "author": "Sofi",
+      "text": "No me gusta que sigan compartiéndola. Quiero que pare."
+    }
+  ],
+  "glossary": [
+    {
+      "term": "Consentimiento",
+      "definition": "Acuerdo libre e informado para que alguien haga algo que nos involucra. Aparecer en una foto no implica autorizar que la publiquen."
+    },
+    {
+      "term": "Privacidad",
+      "definition": "Posibilidad de decidir qué información o imágenes personales compartimos y con quién."
+    },
+    {
+      "term": "Respeto",
+      "definition": "Reconocer derechos, opiniones y límites de otras personas, también en internet."
+    },
+    {
+      "term": "Difusión sin consentimiento",
+      "definition": "Compartir una imagen de alguien sin haber pedido o recibido permiso."
+    },
+    {
+      "term": "Ciberacoso",
+      "definition": "Hostigamiento mediante medios digitales; para analizar una situación importan el contexto, la reiteración y sus efectos, no solo una publicación."
+    }
+  ],
+  "investigateQuestions": [
+    "¿Qué sabemos con seguridad y qué necesitamos averiguar?",
+    "¿Qué pidió Sofi?",
+    "¿Qué responsabilidad tienen quienes reenvían, comentan o miran sin intervenir?",
+    "¿Hay señales de hostigamiento reiterado?"
+  ],
+  "dilemmas": [
+    {
+      "id": "decision1",
+      "title": "¿Qué harías ante esta situación?",
+      "options": [
+        {
+          "id": "reenviar",
+          "label": "Reenviar la foto",
+          "possibleConsequence": "La imagen puede circular todavía más y Sofi pierde control sobre dónde aparece.",
+          "reflection": "¿Cómo podríamos reparar o detener esta difusión?"
+        },
+        {
+          "id": "no_intervenir",
+          "label": "No intervenir",
+          "possibleConsequence": "El mensaje puede continuar circulando y Sofi puede sentirse sola.",
+          "reflection": "¿Qué forma de apoyo sería segura y respetuosa?"
+        },
+        {
+          "id": "acompanar",
+          "label": "Pedir que se retire la foto y acompañar a Sofi",
+          "possibleConsequence": "Se reconoce el pedido de Sofi y se intenta detener la circulación con apoyo de sus compañeros.",
+          "reflection": "¿Qué otras acciones serían necesarias si continúa?"
+        }
+      ]
+    },
+    {
+      "id": "decision2",
+      "title": "La foto sigue circulando. ¿Qué hacemos ahora?",
+      "options": [
+        {
+          "id": "insultar",
+          "label": "Responder con insultos",
+          "possibleConsequence": "El conflicto puede aumentar y aparecer nuevas agresiones.",
+          "reflection": "¿Cómo se puede intervenir sin violencia?"
+        },
+        {
+          "id": "buscar_ayuda",
+          "label": "Pedir ayuda a una persona adulta de confianza o referente escolar",
+          "possibleConsequence": "Se amplían los apoyos para proteger a Sofi y buscar una solución respetuosa.",
+          "reflection": "¿Cómo aseguramos que Sofi participe en las decisiones que la afectan?"
+        },
+        {
+          "id": "ignorar",
+          "label": "Hacer de cuenta que nunca pasó",
+          "possibleConsequence": "El problema puede continuar sin el acompañamiento que se necesita.",
+          "reflection": "¿Qué alternativa de acompañamiento podríamos ofrecer?"
+        }
+      ]
+    }
+  ],
+  "suggestedAgreements": [
+    "Pedir permiso antes de publicar imágenes de otras personas.",
+    "Respetar cuando alguien pide retirar un contenido.",
+    "No reenviar mensajes que humillan o perjudican.",
+    "Evitar burlas y comentarios ofensivos.",
+    "Acompañar a quien recibe agresiones.",
+    "Pedir ayuda ante situaciones que no sabemos resolver.",
+    "Cuidar nuestros datos y los de las demás personas.",
+    "Pensar en las consecuencias antes de compartir.",
+    "Dialogar sin insultar ni amenazar.",
+    "Construir grupos digitales donde todas las voces sean respetadas."
+  ],
+  "finalReflection": "¿Qué decisión tomarías hoy si presenciaras una situación parecida? ¿Por qué?"
+}
