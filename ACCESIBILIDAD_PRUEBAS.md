@@ -12,9 +12,9 @@ Objetivo: WCAG 2.2 nivel AA. **No se afirma cumplimiento**; falta validación co
 - Sin acciones solo de arrastrar: el decálogo se ordena con «Subir/Bajar».
 - Lectura en voz alta opcional (SpeechSynthesis): escuchar, pausar, continuar, repetir, detener; sin autoinicio (la lectura automática está desactivada por defecto).
 - Barrido automático **experimental** (opcional, con pausa y detención).
-- Espacios para videos en LSA (vacíos, sin traducciones automáticas).
+- Recurso externo complementario en LSA incluido en «Investigamos»; no interpreta las escenas y no reemplaza mediación en LSA en el aula. Los espacios propios para videos en LSA siguen pendientes.
 
-## Verificado en esta sesión (Chrome headless, escritorio y 390 px)
+## Verificado en una versión anterior (Chrome headless, escritorio y 390 px)
 - Recorrido completo de las 8 escenas, ida y vuelta, decisiones, consecuencias y decálogo; sin errores de JavaScript.
 - Ninguna escena muestra información de pasos posteriores antes de llegar a ellos.
 - Contraste ≥ 4,5:1 (texto normal) / 3:1 (grande) en los tres aspectos, con verificación automática (los falsos positivos sobre fondos con degradé se revisaron a mano).
@@ -28,4 +28,5 @@ Objetivo: WCAG 2.2 nivel AA. **No se afirma cumplimiento**; falta validación co
 - Comunicadores y dispositivos de acceso reales; pruebas con Tomás, Valentina y Mateo (o estudiantes equivalentes).
 - Revisión de LSA por una persona sorda competente; videos aún inexistentes.
 - Otros navegadores (Safari, Firefox, Edge), celulares y tablets reales, voces en español disponibles en cada dispositivo.
+- Comprobar el recurso de YouTube en celular, teclado y lectores de pantalla. Su disponibilidad, sus subtítulos y su permiso para incrustarse no están comprobados.
 - Auditoría WCAG 2.2 AA completa.

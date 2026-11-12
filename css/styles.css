@@ -577,3 +577,26 @@ html[data-tema="alto"] .difusion-pasos li + li::before { color: #FFD400; }
   .fono-escena .phone { width: 27rem; }
   .fono-escena .burbuja-txt, .fono-escena .post-text { font-size: 1.18rem; }
 }
+
+
+/* Recurso optativo en LSA: una pantalla más para investigar sin cambiar la historia. */
+.recurso-video-lsa { max-width: 59rem; margin: 1rem 0; }
+.recurso-video-lsa .lead { max-width: 55rem; }
+.video-lsa-ficha {
+  display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem;
+  margin: 1rem 0; border: 2px solid var(--line); border-radius: 1rem; background: var(--bar-bg);
+}
+.video-lsa-simbolo { font-size: 2rem; line-height: 1.2; flex: none; }
+.video-lsa-nombre { font-size: 1.15rem; margin: 0 0 .2rem; }
+.video-lsa-ficha .small { margin: 0; }
+.video-lsa-botones { margin: .9rem 0 .55rem; }
+.video-lsa-marco { max-width: 52rem; margin: 1rem 0; border: 2px solid var(--line); border-radius: 1rem; overflow: hidden; background: #0B1026; }
+.video-lsa-marco iframe { display: block; width: 100%; aspect-ratio: 16 / 9; min-height: 12rem; border: 0; }
+.video-lsa-preguntas { padding: 1rem 1.3rem; margin: 1rem 0; border-radius: 1.1rem; border: 2px solid var(--line); background: var(--bar-bg); }
+.video-lsa-preguntas li { margin: 0 0 .7rem; }
+.video-lsa-preguntas p:last-child { margin: 0; }
+@media (max-width: 40rem) {
+  .video-lsa-ficha { padding: .85rem; }
+  .video-lsa-botones > * { flex: 1 1 100%; }
+  .video-lsa-preguntas { padding: .85rem; }
+}

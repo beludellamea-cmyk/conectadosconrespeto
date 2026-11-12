@@ -28,11 +28,11 @@ window.CASO = {
   notification: "Nueva publicación en el grupo 3.º B",
 
   characters: {
-    Sofi: "estudiante que pide retirar la imagen",
+    Sofi: "estudiante que pide retirar la imagen y frenar las burlas",
     Nico: "comparte la imagen sin consultar",
-    Bruno: "minimiza el pedido y comenta de forma despectiva",
-    Lara: "informa que la imagen se difundió más",
-    Mica: "propone respetar el pedido y acompañar"
+    Bruno: "se burla de Sofi y vuelve a compartir la imagen",
+    Lara: "informa que la foto llegó a otros grupos con mensajes de burla",
+    Mica: "pide frenar las burlas y acompañar a Sofi"
   },
 
   post: {
@@ -43,10 +43,11 @@ window.CASO = {
 
   comments: [
     { time: "08:07", author: "Sofi", text: "No quería que subieran esa foto. ¿La podés borrar, por favor?" },
-    { time: "08:10", author: "Bruno", text: "Qué exagerada, si es una foto nada más 🙄" },
-    { time: "08:13", author: "Lara", text: "Ya la pasaron a otro grupo. Me llegó recién." },
-    { time: "08:17", author: "Mica", text: "Si Sofi pidió que la borren, tenemos que respetarla." },
-    { time: "08:20", author: "Sofi", text: "No me gusta que sigan compartiéndola. Quiero que pare." }
+    { time: "08:10", author: "Bruno", text: "Jajaja, miren a Sofi en la foto. Qué exagerada 🙄" },
+    { time: "08:13", author: "Lara", text: "Ya la pasaron a otro grupo. También hay mensajes burlándose de Sofi." },
+    { time: "08:16", author: "Bruno", text: "La volví a compartir. Ahora la están mandando a otros grupos." },
+    { time: "08:18", author: "Mica", text: "Sofi pidió que paren. No está bien burlarse ni reenviar la foto. Hay que acompañarla." },
+    { time: "08:20", author: "Sofi", text: "Me siguen llegando burlas de otros chats. Ya les pedí que paren. Esto me hace sentir muy mal." }
   ],
 
   /* ---- Preguntas de la pantalla "El caso" ---- */
@@ -54,7 +55,7 @@ window.CASO = {
     central: "¿Qué está pasando?",
     open: [
       "¿Qué te llamó la atención?",
-      "¿Qué información falta para comprender lo que ocurrió?"
+      "¿Qué señales de acoso encontramos y qué información nos falta?"
     ]
   },
 
@@ -81,7 +82,7 @@ window.CASO = {
     {
       term: "Ciberacoso",
       definition:
-        "Hostigamiento mediante medios digitales; para analizar una situación importan el contexto, la reiteración y sus efectos, no solo una publicación."
+        "Hostigamiento a través de medios digitales que puede incluir burlas, humillaciones o difusión repetida de contenidos. Para analizarlo importan la reiteración, el contexto y sus efectos."
     }
   ],
 
@@ -90,7 +91,7 @@ window.CASO = {
     "¿Qué pidió Sofi?",
     "¿Qué respuestas obtuvo?",
     "¿Qué responsabilidad tienen quienes reenvían, comentan o miran sin intervenir?",
-    "¿Hay señales de hostigamiento reiterado?"
+    "¿Qué señales de ciberacoso aparecen y qué información nos falta?"
   ],
 
   /* Preguntas extra para el debate presencial, sin pantallas */
@@ -99,7 +100,7 @@ window.CASO = {
     "¿Por qué importa pedir consentimiento antes de compartir una imagen?",
     "¿Qué hace que una broma deje de ser graciosa para todas las personas?",
     "¿Qué responsabilidad tienen quienes reenvían, comentan o miran sin intervenir?",
-    "¿Hay señales de hostigamiento reiterado? ¿Por qué no alcanza una sola pista para etiquetar automáticamente una situación como ciberacoso?"
+    "¿Qué señales de ciberacoso aparecen? ¿Cómo podría intervenir el grupo para proteger a Sofi?"
   ],
 
   /* ---- Decidimos ---- */
@@ -107,7 +108,7 @@ window.CASO = {
     {
       id: "decision1",
       title: "¿Qué harías ante esta situación?",
-      situation: "Acabás de ver el mensaje de Sofi.",
+      situation: "Sofi pidió que retiraran su foto, pero las burlas y los reenvíos continúan en otros chats.",
       options: [
         {
           id: "reenviar",
@@ -119,14 +120,14 @@ window.CASO = {
         {
           id: "no_intervenir",
           label: "No intervenir",
-          possibleConsequence: "El mensaje puede continuar circulando y Sofi puede sentirse sola.",
+          possibleConsequence: "Las burlas pueden continuar, la foto puede circular aún más y Sofi puede sentirse sola.",
           reflection: "¿Qué forma de apoyo sería segura y respetuosa?"
         },
         {
           id: "acompanar",
           label: "Pedir que se retire la foto y acompañar a Sofi",
           possibleConsequence:
-            "Se reconoce el pedido de Sofi y se intenta detener la circulación con apoyo de sus compañeros.",
+            "Se reconoce el pedido de Sofi y se busca detener la difusión y las burlas con apoyo de sus compañeros.",
           reflection: "¿Qué otras acciones serían necesarias si continúa?"
         }
       ]
@@ -134,7 +135,7 @@ window.CASO = {
     {
       id: "decision2",
       title: "La foto sigue circulando. ¿Qué hacemos ahora?",
-      situation: "Pasó un rato y la imagen sigue yendo de un grupo a otro.",
+      situation: "Sofi sigue recibiendo mensajes de burla y la imagen continúa circulando pese a su pedido.",
       options: [
         {
           id: "insultar",
@@ -173,9 +174,9 @@ window.CASO = {
   suggestedAgreements: [
     "Pedir permiso antes de publicar imágenes de otras personas.",
     "Respetar cuando alguien pide retirar un contenido.",
-    "No reenviar mensajes que humillan o perjudican.",
+    "No reenviar fotografías ni mensajes que buscan humillar.",
     "Evitar burlas y comentarios ofensivos.",
-    "Acompañar a quien recibe agresiones.",
+    "Acompañar a quien recibe burlas o agresiones en internet.",
     "Pedir ayuda ante situaciones que no sabemos resolver.",
     "Cuidar nuestros datos y los de las demás personas.",
     "Pensar en las consecuencias antes de compartir.",
@@ -229,10 +230,11 @@ window.CASO.historia = {
   tonos: {
     post: { emoji: "📸", etiqueta: "comparte la foto" },
     c0: { emoji: "🙏", etiqueta: "pide que la retiren" },
-    c1: { emoji: "🙄", etiqueta: "minimiza el pedido" },
-    c2: { emoji: "📲", etiqueta: "avisa que la imagen llegó a otro grupo" },
-    c3: { emoji: "🤝", etiqueta: "propone respetar a Sofi" },
-    c4: { emoji: "✋", etiqueta: "vuelve a pedir que pare" }
+    c1: { emoji: "🙄", etiqueta: "se burla de Sofi" },
+    c2: { emoji: "📲", etiqueta: "avisa que las burlas llegaron a otro grupo" },
+    c3: { emoji: "📤", etiqueta: "vuelve a compartir la imagen" },
+    c4: { emoji: "🤝", etiqueta: "pide frenar las burlas y acompañar" },
+    c5: { emoji: "✋", etiqueta: "cuenta cómo le afecta y vuelve a pedir que pare" }
   },
   /* Descripción en palabras de los emojis que aparecen dentro de los mensajes */
   emojisEnTexto: {
@@ -255,45 +257,47 @@ window.CASO.historia = {
   /* Qué pasó, en orden (una pista por vez) */
   linea: [
     { hora: "08:05", quien: "Nico", que: "Comparte la foto del grupo.", cita: "Les dejo la foto que sacamos en el recreo 😅" },
-    { hora: "08:07", quien: "Sofi", que: "Pide que la borren.", cita: "No quería que subieran esa foto. ¿La podés borrar, por favor?" },
-    { hora: "08:10", quien: "Bruno", que: "Minimiza el pedido.", cita: "Qué exagerada, si es una foto nada más 🙄" },
-    { hora: "08:13", quien: "Lara", que: "Avisa que la foto ya pasó a otro grupo.", cita: "Ya la pasaron a otro grupo. Me llegó recién." },
-    { hora: "08:17", quien: "Mica", que: "Propone respetar el pedido de Sofi.", cita: "Si Sofi pidió que la borren, tenemos que respetarla." },
-    { hora: "08:20", quien: "Sofi", que: "Vuelve a pedir que pare.", cita: "No me gusta que sigan compartiéndola. Quiero que pare." }
+    { hora: "08:07", quien: "Sofi", que: "Pide que retiren la foto.", cita: "No quería que subieran esa foto. ¿La podés borrar, por favor?" },
+    { hora: "08:10", quien: "Bruno", que: "Se burla de Sofi.", cita: "Jajaja, miren a Sofi en la foto. Qué exagerada 🙄" },
+    { hora: "08:13", quien: "Lara", que: "Avisa de burlas en otros grupos.", cita: "Ya la pasaron a otro grupo. También hay mensajes burlándose de Sofi." },
+    { hora: "08:16", quien: "Bruno", que: "Vuelve a reenviar la foto.", cita: "La volví a compartir. Ahora la están mandando a otros grupos." },
+    { hora: "08:18", quien: "Mica", que: "Pide frenar las burlas y acompañar.", cita: "Sofi pidió que paren. No está bien burlarse ni reenviar la foto. Hay que acompañarla." },
+    { hora: "08:20", quien: "Sofi", que: "Cuenta que las burlas siguen y la afectan.", cita: "Me siguen llegando burlas de otros chats. Ya les pedí que paren. Esto me hace sentir muy mal." }
   ],
 
   sabemos: [
-    "La foto se publicó en el grupo.",
-    "Sofi pidió dos veces que la retiren y que paren.",
-    "Hubo un comentario que minimizó el pedido.",
-    "La foto llegó a otro grupo.",
-    "Una persona propuso respetar a Sofi."
+    "Nico publicó una foto del grupo.",
+    "Sofi pidió que dejaran de compartirla.",
+    "Bruno se burló y admitió haberla reenviado otra vez.",
+    "Lara informó que la foto y las burlas llegaron a otros chats.",
+    "Sofi explicó que esto la hace sentir muy mal.",
+    "Mica propuso intervenir y acompañar."
   ],
   falta: [
     "¿Se le preguntó a Sofi antes de publicar?",
-    "¿Hasta dónde llegó la foto y quién la reenvió?",
-    "¿Cómo se siente Sofi y qué necesita ahora?",
-    "¿Esto ya pasó antes o es la primera vez?",
-    "¿Qué hicieron las demás personas que la vieron?"
+    "¿Quiénes más reenviaron la foto y hasta dónde llegó?",
+    "¿Qué necesita Sofi para sentirse acompañada y segura?",
+    "¿Las burlas ya ocurrían antes o continuaron después?",
+    "¿Cómo intervinieron las otras personas que vieron los mensajes?"
   ],
 
   /* Conceptos: definición (del glosario) + qué se ve en este caso */
   conceptos: [
-    { clave: "Consentimiento", enElCaso: "Sofi pidió que borren la foto: dejó claro que no estaba de acuerdo con que se publicara." },
-    { clave: "Privacidad", enElCaso: "La imagen ya salió del grupo original y Sofi no puede decidir adónde llega." },
-    { clave: "Respeto", enElCaso: "Mica propone respetar el pedido de Sofi; Bruno lo minimiza. Dos formas distintas de responder." },
-    { clave: "Difusión sin consentimiento", enElCaso: "La foto se compartió y después pasó a otro grupo. En la publicación no se ve ninguna consulta previa." },
-    { clave: "Ciberacoso", etiqueta: "Posible ciberacoso", enElCaso: "Hay circulación que se amplía, un pedido que se repite y un comentario despectivo. Eso habilita analizar un posible ciberacoso, pero todavía faltan datos: no se etiqueta de apuro." }
+    { clave: "Consentimiento", enElCaso: "Sofi pidió que retiraran la foto. Pese al pedido, siguieron reenviándola." },
+    { clave: "Privacidad", enElCaso: "La foto llegó a otros grupos y Sofi perdió control sobre dónde circula." },
+    { clave: "Respeto", enElCaso: "Mica busca frenar las burlas y apoyar a Sofi; Bruno vuelve a difundir la foto pese a su pedido." },
+    { clave: "Difusión sin consentimiento", enElCaso: "No se ve una consulta previa y Bruno admite haber reenviado la imagen después de que Sofi pidió que pararan." },
+    { clave: "Ciberacoso", etiqueta: "Señales de ciberacoso", enElCaso: "Hay burlas reiteradas en chats, circulación sostenida de una foto y malestar expresado por Sofi. Son señales que debemos analizar, sin dar por conocido todo el contexto." }
   ],
 
   /* Señales para analizar si hay hostigamiento (se muestran al seleccionarlas) */
   senales: [
-    { clave: "Reiteración", pregunta: "¿Pasó una sola vez o se repite?", evidencia: "Sofi pidió dos veces que pare (08:07 y 08:20) y la foto siguió circulando hasta otro grupo. ¿Pasó antes? No lo sabemos todavía." },
-    { clave: "Intención", pregunta: "¿Se busca molestar o dañar?", evidencia: "Nico escribió «Les dejo la foto…». Bruno restó importancia al pedido. ¿Querían molestar o no lo pensaron? Falta información." },
-    { clave: "Contexto", pregunta: "¿Qué relación hay y quién mira?", evidencia: "Es un grupo escolar (3.º B). Hay personas que escriben y otras que solo miran: no sabemos qué hicieron." },
-    { clave: "Efectos", pregunta: "¿Cómo puede afectar y qué pidió la persona?", evidencia: "Sofi dice que no le gusta y quiere que pare. Falta saber cómo se siente y qué necesita." }
+    { clave: "Reiteración", pregunta: "¿Las burlas y los reenvíos continúan?", evidencia: "Bruno se burla y vuelve a compartir la foto. Lara informa de otros chats con burlas y Sofi dice que le siguen llegando. No sabemos desde cuándo sucede." },
+    { clave: "Intención", pregunta: "¿Se intenta humillar o lastimar?", evidencia: "Bruno se burla y comparte otra vez la foto, aun cuando Sofi pidió detenerlo. Analizamos esas acciones sin asegurar conocer todas sus motivaciones." },
+    { clave: "Contexto", pregunta: "¿Qué ocurre en los grupos?", evidencia: "El caso empieza en 3.º B y se extiende a otros chats. Mica pide intervenir, pero no sabemos cómo actuaron las demás personas." },
+    { clave: "Efectos", pregunta: "¿Cómo afecta a Sofi?", evidencia: "Sofi cuenta que le llegan burlas de otros chats y que se siente muy mal. Es importante escucharla, creer en lo que expresa y respetar su pedido." }
   ],
-  conclusionAcoso: "Compartir una foto sin permiso vulnera el consentimiento y la privacidad. Para hablar de ciberacoso hay que analizar reiteración, intención, contexto y efectos, sin etiquetar de apuro.",
+  conclusionAcoso: "Ahora encontramos señales más claras de posible ciberacoso: burlas reiteradas, difusión que continúa pese al pedido y malestar expresado por Sofi. Podemos intervenir y acompañarla sin esperar que la situación empeore.",
 
   /* Ilustración simple de cada consecuencia: tipo de dibujo */
   dibujos: {
@@ -305,8 +309,15 @@ window.CASO.historia = {
     ignorar: "sigue"
   },
 
+  videoComplementarioLSA: {
+    titulo: "Día contra el acoso escolar y el ciberacoso en Lengua de Señas Argentina",
+    autor: "Canales Asociación Civil",
+    url: "https://www.youtube.com/watch?v=HsaAA17hhAM",
+    embed: "https://www.youtube-nocookie.com/embed/HsaAA17hhAM"
+  },
+
   clases: {
-    uno: ["Notificación y presentación digital · 10 min", "Investigación en grupos · 25 min", "Debate sin pantallas · 20 min", "Dilema y decisiones · 25 min"],
+    uno: ["Notificación y presentación digital · 10 min", "Investigación y video en LSA (opcional) · 25 min", "Debate sin pantallas · 20 min", "Dilema y decisiones · 25 min"],
     dos: ["Recuperar lo sucedido · 10 min", "Explorar otros desenlaces · 25 min", "Acuerdos colectivos · 35 min", "Reflexión final · 10 min"]
   }
 };

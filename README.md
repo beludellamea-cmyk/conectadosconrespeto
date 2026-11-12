@@ -4,12 +4,12 @@ Historia interactiva accesible para **Formación Ética y Ciudadana, 3.º año**
 Es una simulación **ficticia**: una foto del grupo se comparte sin permiso y empieza a circular.
 El estudiantado investiga, decide y construye un decálogo de convivencia digital.
 
-Sitio estático (HTML + CSS + JavaScript sin dependencias). Sin servidor, sin cuentas, sin analíticas, sin red.
+Sitio estático (HTML + CSS + JavaScript sin dependencias). La historia no utiliza cuentas ni analíticas propias y puede abrirse sin conexión. El video externo opcional en LSA requiere internet y se carga solo si la persona lo solicita.
 Todo se guarda **solo en el dispositivo** (localStorage). No hay sonidos.
 
 ## Las 8 escenas
-1. Inicio · 2. Notificación · 3. La foto · 4. Los mensajes (uno por uno, nunca desaparecen) ·
-5. La historia se detiene («¿Qué está pasando acá?») · 6. Investigamos (pistas, línea de tiempo, conceptos, señales) ·
+1. Inicio · 2. Notificación · 3. La foto · 4. Los mensajes (uno por uno, nunca desaparecen; incluyen burlas reiteradas) ·
+5. La historia se detiene («¿Qué está pasando acá?») · 6. Investigamos (7 pistas, conceptos, señales de ciberacoso y video externo en LSA, opcional) ·
 7. Decidimos (3 opciones, consecuencia en texto + dibujo, reflexión, sin puntajes) · 8. Construimos (decálogo editable, imprimir/descargar).
 
 Nada avanza solo: se avanza con «Continuar» / «Volver». El botón **Etapas** (docente) salta a cualquier escena o decisión.
@@ -52,3 +52,10 @@ barrido automático experimental opcional. Ver `ACCESIBILIDAD_PRUEBAS.md`: se ap
 - Opciones de decisión, conceptos y acuerdos con símbolos visuales **que no reemplazan los textos**.
 - Bloque opcional «Comunicar una idea sin escribir», con frases seleccionables, visibles y de lectura voluntaria. No reemplaza ningún comunicador de CAA.
 - Guía de producción para completar los apoyos reales en LSA en `GUIA_VIDEOS_LSA.md`.
+
+## Actualización del caso y recurso complementario en LSA
+- La historia se amplió de **difusión no consentida** a **posibles situaciones de ciberacoso**: burlas reiteradas, una foto que sigue circulando, un reenvío después del pedido y el malestar expresado por Sofi. Las decisiones buscan detener el daño y acompañar; no diagnostican ni etiquetan automáticamente.
+- Al final de «Investigamos» se incorporó un recurso externo: **Canales Asociación Civil, «Día contra el acoso escolar y el ciberacoso en Lengua de Señas Argentina»**. Enlace: https://www.youtube.com/watch?v=HsaAA17hhAM
+- El enlace y el reproductor de YouTube se ofrecen sin copiar, reeditar o descargar el video. La carga del reproductor requiere una acción explícita. Se puede saltar el video y seguir con toda la secuencia.
+- **Este video no interpreta nuestra historia** y no sustituye la mediación comunicativa necesaria para participar del debate en LSA. Su pertinencia debe validarse con una persona usuaria de LSA. La reproducción incrustada dependerá de que YouTube la permita.
+- Para orientación docente, ver `GUIA_VIDEO_LSA_EN_CLASE.md`.

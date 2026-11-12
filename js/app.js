@@ -170,9 +170,11 @@
         (v.credit ? '<p class="small muted">' + esc(v.credit) + "</p>" : "") +
         (v.transcript ? "<details><summary>Transcripción del video</summary><p>" + esc(v.transcript) + "</p></details>" : "");
     } else {
-      box.innerHTML = '<div class="lsa-pendiente"><p><strong>Todavía no hay un video en LSA para la escena «' + esc(H.escenas[nav.scene].nombre) + '».</strong></p>' +
-        "<p>Cuando una persona competente en LSA lo grabe y lo revise, se podrá incorporar en este lugar (ver el README). No usamos avatares ni traducciones automáticas.</p>" +
-        "<p>Mientras tanto, todo el contenido está escrito y acompañado de elementos visuales. Si el grupo cuenta con mediación en LSA en el aula, esa mediación es presencial.</p></div>";
+      var vcom = H.videoComplementarioLSA;
+      box.innerHTML = '<div class="lsa-pendiente"><p><strong>Aún no hay un video en LSA que interprete la escena «' + esc(H.escenas[nav.scene].nombre) + '».</strong></p>' +
+        '<p>Hay un <strong>video complementario en LSA</strong> de ' + esc(vcom.autor) + ' sobre acoso escolar y ciberacoso. No es una traducción de la historia ni de las consignas.</p>' +
+        '<p><a target="_blank" rel="noopener noreferrer" href="' + esc(vcom.url) + '">Ver el video en YouTube (otra pestaña)</a>. También se ofrece al final de «Investigamos».</p>' +
+        "<p>En la clase, se deben prever apoyos comunicacionales apropiados para participar en LSA durante el debate.</p></div>";
     }
   }
 
@@ -321,7 +323,7 @@
       '<ol class="difusion-pasos">' +
       '<li><span class="difusion-icono" aria-hidden="true">📸</span><strong>Nico publica</strong><span>Comparte una foto.</span></li>' +
       '<li><span class="difusion-icono" aria-hidden="true">💬</span><strong>Grupo 3.º B</strong><span>Sus compañeros la ven.</span></li>' +
-      '<li><span class="difusion-icono" aria-hidden="true">📲</span><strong>Otro grupo</strong><span>Lara avisa que la recibieron.</span></li></ol>' +
+      '<li><span class="difusion-icono" aria-hidden="true">📲</span><strong>Otros grupos</strong><span>La foto circula y aparecen burlas.</span></li></ol>' +
       '<p class="difusion-pregunta">💭 Para pensar: ¿quién puede decidir ahora dónde termina esa imagen?</p>' +
       '</section>';
   }
@@ -341,6 +343,30 @@
       '<p class="frase-elegida-texto" role="status" aria-live="polite"></p>' +
       '<button type="button" class="btn btn-secondary" data-act="oir-frase">' + icon("speaker") + 'Escuchar la frase</button>' +
       '</div></details>';
+  }
+
+
+  /* Un video externo en LSA para profundizar; no interpreta las escenas ficticias. */
+  function recursoVideoLsaHtml() {
+    var v = H.videoComplementarioLSA;
+    return '<section class="recurso-video-lsa" aria-labelledby="h-video-lsa">' +
+      '<p class="eyebrow">Un recurso más para investigar</p>' +
+      '<h2 id="h-video-lsa">Miramos y comparamos</h2>' +
+      '<p class="lead">En el caso de Sofi aparecieron burlas que se repiten, una foto que sigue circulando y un pedido de ayuda. Vamos a conocer otro recurso sobre acoso escolar y ciberacoso, presentado en Lengua de Señas Argentina.</p>' +
+      '<div class="video-lsa-ficha"><span class="video-lsa-simbolo" aria-hidden="true">🤟</span><div>' +
+      '<p class="video-lsa-nombre"><strong>' + esc(v.titulo) + '</strong></p><p class="small">Canales Asociación Civil · Video externo en LSA</p></div></div>' +
+      '<p class="small">Este video <strong>no es una traducción de la historia de Sofi</strong>. Es opcional, y necesitás internet para verlo. Las demás actividades funcionan sin reproducirlo.</p>' +
+      '<div class="btn-row video-lsa-botones"><button type="button" class="btn btn-primary" data-act="ver-video-lsa" aria-expanded="false" aria-controls="video-lsa-marco">' +
+      icon("play") + 'Ver video aquí</button><a class="btn btn-secondary" href="' + esc(v.url) + '" target="_blank" rel="noopener noreferrer">' +
+      icon("expand") + 'Abrir en YouTube (otra pestaña)</a></div>' +
+      '<p class="small muted">El reproductor externo se carga solo si elegís verlo. YouTube puede recibir datos de conexión.</p>' +
+      '<div id="video-lsa-marco" class="video-lsa-marco" hidden></div>' +
+      '<div class="video-lsa-preguntas"><h3>Conversamos después del video</h3><ol>' +
+      '<li>¿Qué acciones pueden ayudar a frenar el acoso en las redes?</li>' +
+      '<li>¿Qué señales de ciberacoso identificamos en el caso de Sofi?</li>' +
+      '<li>¿Cómo acompañarías a Sofi sin reenviar la foto ni sumarte a las burlas?</li></ol>' +
+      '<p class="small">Se puede participar oralmente, en LSA, por escrito o con un comunicador. Si el video no está disponible, usá las pistas y los conceptos anteriores para responder.</p>' +
+      '</div></section>';
   }
 
   var scenes = {
@@ -450,13 +476,14 @@
       live: function () { return "La historia se detiene. ¿Qué está pasando acá? Conversen en el equipo."; }
     },
 
+
     /* ---- 6. INVESTIGAMOS ---- */
     investigamos: {
-      beats: 6 + 1 + 5 + 1,
-      chapters: [{ t: "Línea de tiempo", b: 0 }, { t: "Lo que sabemos", b: 6 }, { t: "Conceptos clave", b: 7 }, { t: "Señales de hostigamiento", b: 12 }],
+      beats: H.linea.length + 1 + D.glossary.length + 2,
+      chapters: [{ t: "Línea de tiempo", b: 0 }, { t: "Lo que sabemos", b: 7 }, { t: "Conceptos clave", b: 8 }, { t: "Señales de ciberacoso", b: 13 }, { t: "Video en LSA (opcional)", b: 14 }],
       render: function (b, o) {
         var h = '<section class="escena panel-escena" aria-labelledby="h-inv">' + eyebrow(6) + '<h1 id="h-inv" tabindex="-1">Investigamos</h1>';
-        if (b <= 5) {
+        if (b <= 6) {
           h += '<p class="lead">Armemos la línea de tiempo, una pista por vez.</p><ol class="linea" aria-label="Línea de tiempo, de lo primero a lo último">';
           for (var i = 0; i <= b; i++) {
             var e = H.linea[i];
@@ -464,38 +491,42 @@
           }
           h += "</ol>";
           if (b >= 3) h += circulacionHtml();
-        } else if (b === 6) {
+        } else if (b === 7) {
           h += '<p class="lead">¿Qué sabemos con seguridad y qué necesitamos averiguar?</p><div class="dos-col"><div class="card"><h2>Sabemos</h2><ul>' +
             H.sabemos.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + '</ul></div><div class="card"><h2>Falta averiguar</h2><ul>' +
             H.falta.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ul></div></div>";
-        } else if (b <= 11) {
-          var k = b - 7, cpt = H.conceptos[k], g = D.glossary[k];
+        } else if (b <= 12) {
+          var k = b - 8, cpt = H.conceptos[k], g = D.glossary[k];
           h += '<p class="lead">Cinco ideas para entender lo que pasó.</p><ol class="tira" aria-label="Conceptos">' +
             H.conceptos.map(function (c, j) { return '<li class="' + (j < k ? "hecho" : (j === k ? "actual" : "")) + '"' + (j === k ? ' aria-current="step"' : "") + ">" + (j < k ? "✓ " : "") + esc(c.etiqueta || c.clave) + "</li>"; }).join("") + "</ol>" +
             '<div class="card concepto revela"><h2><span class="concepto-picto" aria-hidden="true">' + iconosConceptos[k] + '</span>' + esc(cpt.etiqueta || g.term) + '</h2><p class="def">' + esc(g.definition) + '</p><p class="en-caso"><strong>En el caso:</strong> ' + esc(cpt.enElCaso) + "</p></div>";
-        } else {
-          h += '<p class="lead">¿Hay señales de hostigamiento reiterado? Elegí una señal para ver qué sabemos.</p><div class="card"><div class="chips" role="group" aria-label="Señales para analizar">' +
+        } else if (b === 13) {
+          h += '<p class="lead">Hay señales que merecen atención. Elegí una para analizar qué sabemos.</p><div class="card"><div class="chips" role="group" aria-label="Señales para analizar">' +
             H.senales.map(function (s, j) { return '<button type="button" class="chip" data-act="senal" data-i="' + j + '" aria-pressed="' + (ui.senal === j ? "true" : "false") + '">' + esc(s.clave) + "</button>"; }).join("") +
             '</div><div id="senal-out" tabindex="-1"></div></div><div class="card"><p style="margin:0"><strong>' + esc(H.conclusionAcoso) + "</strong></p></div>";
+        } else {
+          h += recursoVideoLsaHtml();
         }
         return h + "</section>";
       },
-      after: function (b) { if (b === 12) renderSenal(); },
+      after: function (b) { if (b === 13) renderSenal(); },
       bar: function (b) {
-        var n = b <= 4 ? "Siguiente pista" : b === 5 ? "¿Qué sabemos?" : b === 6 ? "Conceptos clave" : b <= 10 ? "Siguiente concepto" : b === 11 ? "Analizar señales" : "Ir a las decisiones";
-        return { next: n, back: b > 0 ? "Volver un paso" : "Volver a la pausa", note: b <= 5 ? "Pista " + (b + 1) + " de 6" : b >= 7 && b <= 11 ? "Concepto " + (b - 6) + " de 5" : "" };
+        var n = b <= 5 ? "Siguiente pista" : b === 6 ? "¿Qué sabemos?" : b === 7 ? "Conceptos clave" : b <= 11 ? "Siguiente concepto" : b === 12 ? "Analizar señales" : b === 13 ? "Ver video en LSA (opcional)" : "Ir a las decisiones";
+        return { next: n, back: b > 0 ? "Volver un paso" : "Volver a la pausa", note: b <= 6 ? "Pista " + (b + 1) + " de 7" : b >= 8 && b <= 12 ? "Concepto " + (b - 7) + " de 5" : b === 14 ? "Video opcional. Podés continuar sin verlo." : "" };
       },
       speech: function (b) {
-        if (b <= 5) { var e = H.linea[b]; return "A las " + e.hora + ", " + e.quien + ": " + e.que + " " + hablado(e.cita) + (b >= 3 ? " Esquema de circulación: Nico publica una foto, se comparte en el grupo tercero B y Lara avisa que llegó a otro grupo. ¿Quién decide dónde termina la imagen?" : ""); }
-        if (b === 6) return "Sabemos: " + H.sabemos.join(" ") + " Falta averiguar: " + H.falta.join(" ");
-        if (b <= 11) { var c = H.conceptos[b - 7], g = D.glossary[b - 7]; return (c.etiqueta || g.term) + ". " + g.definition + " En el caso: " + c.enElCaso; }
-        return (ui.senal !== null ? H.senales[ui.senal].clave + ". " + H.senales[ui.senal].evidencia + " " : "¿Hay señales de hostigamiento reiterado? Elegí una señal. ") + H.conclusionAcoso;
+        if (b <= 6) { var e = H.linea[b]; return "A las " + e.hora + ", " + e.quien + ": " + e.que + " " + hablado(e.cita) + (b >= 3 ? " La foto circula fuera del grupo y aparecen burlas. ¿Qué podemos hacer para frenarlas?" : ""); }
+        if (b === 7) return "Sabemos: " + H.sabemos.join(" ") + " Falta averiguar: " + H.falta.join(" ");
+        if (b <= 12) { var c = H.conceptos[b - 8], g = D.glossary[b - 8]; return (c.etiqueta || g.term) + ". " + g.definition + " En el caso: " + c.enElCaso; }
+        if (b === 13) return (ui.senal !== null ? H.senales[ui.senal].clave + ". " + H.senales[ui.senal].evidencia + " " : "Elegí una señal de ciberacoso para analizar. ") + H.conclusionAcoso;
+        return "Miramos y comparamos. Video complementario en Lengua de Señas Argentina sobre el acoso escolar y el ciberacoso, de Canales Asociación Civil. El video es opcional y no es una traducción de la historia. Después conversamos sobre cómo frenar las burlas y acompañar a Sofi.";
       },
       live: function (b) {
-        if (b <= 5) { var e = H.linea[b]; return "Pista " + (b + 1) + " de 6. A las " + e.hora + ", " + e.quien + ": " + e.que; }
-        if (b === 6) return "¿Qué sabemos con seguridad y qué necesitamos averiguar?";
-        if (b <= 11) { var c = H.conceptos[b - 7]; return "Concepto " + (b - 6) + " de 5: " + (c.etiqueta || c.clave) + ". " + D.glossary[b - 7].definition; }
-        return "¿Hay señales de hostigamiento reiterado? Elegí una señal para ver qué sabemos.";
+        if (b <= 6) { var e = H.linea[b]; return "Pista " + (b + 1) + " de 7. A las " + e.hora + ", " + e.quien + ": " + e.que; }
+        if (b === 7) return "¿Qué sabemos con seguridad y qué necesitamos averiguar?";
+        if (b <= 12) { var c = H.conceptos[b - 8]; return "Concepto " + (b - 7) + " de 5: " + (c.etiqueta || c.clave) + ". " + D.glossary[b - 8].definition; }
+        if (b === 13) return "Señales de posible ciberacoso. Seleccioná una para revisar la evidencia.";
+        return "Video complementario en LSA opcional. Después conversamos sobre las señales de ciberacoso del caso de Sofi.";
       }
     },
 
@@ -850,7 +881,27 @@
 
   function stageAction(a, t) {
     var id = H.escenas[nav.scene].id;
-    if (a === "comunicar") {
+    if (a === "ver-video-lsa") {
+      var contenedor = $("#video-lsa-marco");
+      if (contenedor) {
+        var abrir = contenedor.hidden;
+        if (abrir) {
+          var marco = document.createElement("iframe");
+          marco.src = H.videoComplementarioLSA.embed;
+          marco.title = "Video en LSA sobre acoso escolar y ciberacoso, Canales Asociación Civil";
+          marco.setAttribute("allow", "encrypted-media; fullscreen; picture-in-picture");
+          marco.setAttribute("allowfullscreen", "");
+          marco.setAttribute("loading", "lazy");
+          marco.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+          contenedor.appendChild(marco);
+        } else contenedor.textContent = "";
+        contenedor.hidden = !abrir;
+        t.setAttribute("aria-expanded", abrir ? "true" : "false");
+        t.innerHTML = abrir ? icon("close") + "Cerrar video" : icon("play") + "Ver video aquí";
+        announce(abrir ? "Reproductor abierto. Si no carga, usá el enlace a YouTube." : "Video cerrado.");
+      }
+    }
+    else if (a === "comunicar") {
       var panel = t.closest(".comunicacion-opcional");
       var chosen = t.getAttribute("data-frase") || "";
       var output = $(".frase-elegida", panel);

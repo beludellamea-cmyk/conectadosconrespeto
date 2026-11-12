@@ -6,11 +6,11 @@
   "altImage": "Cinco estudiantes posan sonrientes para una foto grupal en el pasillo de una escuela.",
   "studentsAreFictional": true,
   "characters": {
-    "Sofi": "estudiante que pide retirar la imagen",
+    "Sofi": "estudiante que pide retirar la imagen y frenar las burlas",
     "Nico": "comparte la imagen sin consultar",
-    "Bruno": "minimiza el pedido y comenta de forma despectiva",
-    "Lara": "informa que la imagen se difundió más",
-    "Mica": "propone respetar el pedido y acompañar"
+    "Bruno": "se burla de Sofi y vuelve a compartir la imagen",
+    "Lara": "informa que la foto llegó a otros grupos con mensajes de burla",
+    "Mica": "pide frenar las burlas y acompañar a Sofi"
   },
   "post": {
     "time": "08:05",
@@ -26,22 +26,27 @@
     {
       "time": "08:10",
       "author": "Bruno",
-      "text": "Qué exagerada, si es una foto nada más 🙄"
+      "text": "Jajaja, miren a Sofi en la foto. Qué exagerada 🙄"
     },
     {
       "time": "08:13",
       "author": "Lara",
-      "text": "Ya la pasaron a otro grupo. Me llegó recién."
+      "text": "Ya la pasaron a otro grupo. También hay mensajes burlándose de Sofi."
     },
     {
-      "time": "08:17",
+      "time": "08:16",
+      "author": "Bruno",
+      "text": "La volví a compartir. Ahora la están mandando a otros grupos."
+    },
+    {
+      "time": "08:18",
       "author": "Mica",
-      "text": "Si Sofi pidió que la borren, tenemos que respetarla."
+      "text": "Sofi pidió que paren. No está bien burlarse ni reenviar la foto. Hay que acompañarla."
     },
     {
       "time": "08:20",
       "author": "Sofi",
-      "text": "No me gusta que sigan compartiéndola. Quiero que pare."
+      "text": "Me siguen llegando burlas de otros chats. Ya les pedí que paren. Esto me hace sentir muy mal."
     }
   ],
   "glossary": [
@@ -63,19 +68,21 @@
     },
     {
       "term": "Ciberacoso",
-      "definition": "Hostigamiento mediante medios digitales; para analizar una situación importan el contexto, la reiteración y sus efectos, no solo una publicación."
+      "definition": "Hostigamiento a través de medios digitales que puede incluir burlas, humillaciones o difusión repetida de contenidos. Para analizarlo importan la reiteración, el contexto y sus efectos."
     }
   ],
   "investigateQuestions": [
     "¿Qué sabemos con seguridad y qué necesitamos averiguar?",
     "¿Qué pidió Sofi?",
+    "¿Qué respuestas obtuvo?",
     "¿Qué responsabilidad tienen quienes reenvían, comentan o miran sin intervenir?",
-    "¿Hay señales de hostigamiento reiterado?"
+    "¿Qué señales de ciberacoso aparecen y qué información nos falta?"
   ],
   "dilemmas": [
     {
       "id": "decision1",
       "title": "¿Qué harías ante esta situación?",
+      "situation": "Sofi pidió que retiraran su foto, pero las burlas y los reenvíos continúan en otros chats.",
       "options": [
         {
           "id": "reenviar",
@@ -86,13 +93,13 @@
         {
           "id": "no_intervenir",
           "label": "No intervenir",
-          "possibleConsequence": "El mensaje puede continuar circulando y Sofi puede sentirse sola.",
+          "possibleConsequence": "Las burlas pueden continuar, la foto puede circular aún más y Sofi puede sentirse sola.",
           "reflection": "¿Qué forma de apoyo sería segura y respetuosa?"
         },
         {
           "id": "acompanar",
           "label": "Pedir que se retire la foto y acompañar a Sofi",
-          "possibleConsequence": "Se reconoce el pedido de Sofi y se intenta detener la circulación con apoyo de sus compañeros.",
+          "possibleConsequence": "Se reconoce el pedido de Sofi y se busca detener la difusión y las burlas con apoyo de sus compañeros.",
           "reflection": "¿Qué otras acciones serían necesarias si continúa?"
         }
       ]
@@ -100,6 +107,7 @@
     {
       "id": "decision2",
       "title": "La foto sigue circulando. ¿Qué hacemos ahora?",
+      "situation": "Sofi sigue recibiendo mensajes de burla y la imagen continúa circulando pese a su pedido.",
       "options": [
         {
           "id": "insultar",
@@ -125,9 +133,9 @@
   "suggestedAgreements": [
     "Pedir permiso antes de publicar imágenes de otras personas.",
     "Respetar cuando alguien pide retirar un contenido.",
-    "No reenviar mensajes que humillan o perjudican.",
+    "No reenviar fotografías ni mensajes que buscan humillar.",
     "Evitar burlas y comentarios ofensivos.",
-    "Acompañar a quien recibe agresiones.",
+    "Acompañar a quien recibe burlas o agresiones en internet.",
     "Pedir ayuda ante situaciones que no sabemos resolver.",
     "Cuidar nuestros datos y los de las demás personas.",
     "Pensar en las consecuencias antes de compartir.",
