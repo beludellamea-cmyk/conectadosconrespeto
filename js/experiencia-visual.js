@@ -142,7 +142,9 @@
       '<p>Ahora vamos a reunir pistas para comprender mejor qué ocurrió.</p>'+
       '<a class="btn btn-primary" href="#/investigamos">Seguir: investigamos →</a>';
     feed.insertBefore(done,feed.querySelector(".nav-pie"));
-    var controls=controlBar(feed,"← Volver","Continuar →",function(){caseStep=Math.max(0,caseStep-1);renderCase(true);},
+    var controls=controlBar(feed,"← Volver","Continuar →",function(){
+      if(caseStep===0){window.location.hash="#/inicio";return;}
+      caseStep=Math.max(0,caseStep-1);renderCase(true);},
       function(){caseStep=Math.min(8,caseStep+1);renderCase(true);});
     ui.caseObj={feed:feed,content:content,not:not,post:post,comments:comments,list:list,qbox:qbox,qcards:qcards,
       banner:banner,context:context,done:done,controls:controls};
@@ -178,7 +180,8 @@
     hide(s.qbox,!(caseStep===6||caseStep===7));
     hide(s.done,caseStep!==8);
     hide(s.controls.root,false);
-    hide(s.controls.back,caseStep===0);
+    hide(s.controls.back,false);
+    s.controls.back.textContent=caseStep===0?"← Volver al inicio":"← Volver";
     hide(s.controls.next,caseStep===8);
     s.controls.next.textContent=caseStep===0?"Ver qué dijo Sofi →":
       caseStep>=1&&caseStep<=4?"Leer el siguiente mensaje →":
@@ -200,7 +203,9 @@
     done.innerHTML='<h2>Ya tenemos más información</h2><p>Comprender lo que ocurrió nos ayuda a tomar decisiones responsables.</p>'+
       '<a class="btn btn-primary" href="#/decidimos">Seguir: decidimos →</a>';
     view.insertBefore(done,view.querySelector(".nav-pie"));
-    var controls=controlBar(view,"← Volver","Siguiente pista →",function(){invStep=Math.max(0,invStep-1);renderInvestigation(true);},
+    var controls=controlBar(view,"← Volver","Siguiente pista →",function(){
+      if(invStep===0){window.location.hash="#/caso";return;}
+      invStep=Math.max(0,invStep-1);renderInvestigation(true);},
       function(){invStep=Math.min(10,invStep+1);renderInvestigation(true);});
     ui.invObj={view:view,cards:cards,terms:terms,cbox:cbox,analysis:analysis,glossary:glossary,reflex:reflex,
       banner:banner,done:done,controls:controls};
@@ -237,7 +242,8 @@
     hide(s.reflex,!(invStep===8||invStep===9));
     $$("#preguntas-inv li",s.reflex).forEach(function(li,i){hide(li,invStep===8?i>1:invStep===9?i<2:true);});
     hide(s.done,invStep!==10);
-    hide(s.controls.root,false);hide(s.controls.back,invStep===0);
+    hide(s.controls.root,false);hide(s.controls.back,false);
+    s.controls.back.textContent=invStep===0?"← Volver al caso":"← Volver";
     hide(s.controls.next,invStep===10);
     s.controls.next.textContent=invStep===9?"Terminar investigación →":invStep===7?"Conversar en equipo →":
       invStep>=4&&invStep<=6?"Continuar →":"Siguiente pista →";
@@ -294,7 +300,7 @@
       '<a class="btn btn-primary" href="#/construimos">Seguir: construimos →</a>';
     box.insertAdjacentElement("afterend",done);
     var controls=controlBar(box,"← Primera situación","Segunda situación →",
-      function(){decStep=0;renderDecisions(true);},
+      function(){if(decStep===0){window.location.hash="#/investigamos";return;}decStep=0;renderDecisions(true);},
       function(){decStep=1;renderDecisions(true);});
     ui.decObj={view:view,box:box,banner:banner,done:done,controls:controls};
     enhanceDecisionMarkup();renderDecisions(false);
@@ -334,11 +340,11 @@
     $("h2",s.banner).textContent=decStep===0?"Primera decisión: ¿qué harías?":"Segunda decisión: ¿cómo acompañamos?";
     $("p",s.banner).textContent="Elegí una alternativa, confirmala y descubrí una consecuencia posible. Podés escuchar cada opción.";
     var sec=sections[decStep],consequence=$(".consecuencia",sec),confirmed=visible(consequence);
-    hide(s.controls.back,decStep===0);
+    hide(s.controls.back,false);
+    s.controls.back.textContent=decStep===0?"← Volver a investigar":"← Primera situación";
     hide(s.controls.next,decStep!==0||!confirmed);
-    hide(s.controls.root,!(decStep===1||confirmed));
+    hide(s.controls.root,false);
     hide(s.done,decStep!==1||!confirmed);
-    if(decStep===1&&confirmed)hide(s.controls.root,false);
     if(moveFocus)focus($("h2",s.banner));
   }
   function initBuild(){
@@ -355,6 +361,9 @@
       note.parentNode.insertBefore(details,note);details.appendChild(sum);details.appendChild(note);
       note.style.display="block";note.classList.remove("nota-aviso");
     }
+    var back=document.createElement("p");back.className="journey-skip-note";
+    back.innerHTML='<a class="btn btn-secondary" href="#/decidimos">← Volver a las decisiones</a>';
+    $(".grid-2",view).insertAdjacentElement("beforebegin",back);
     ui.buildObj={ideas:ideas,prev:prev,next:next,count:$("#journey-idea-count")};
     showIdea(false);
     new MutationObserver(function(){showIdea(false);}).observe(ideas,{childList:true});
