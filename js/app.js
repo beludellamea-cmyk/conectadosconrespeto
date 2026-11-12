@@ -150,7 +150,6 @@
     });
     $("#btn-a11y").addEventListener("click", function () { openDlg($("#dlg-a11y"), this); });
     $("#btn-ayuda").addEventListener("click", function () { openDlg($("#dlg-ayuda"), this); });
-    $("#btn-lsa").addEventListener("click", function () { renderLsa(); openDlg($("#dlg-lsa"), this); });
     $("#ayuda-clases").innerHTML =
       '<div class="clase"><h4>Clase 1 · 80 minutos</h4><ol>' + H.clases.uno.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ol></div>" +
       '<div class="clase"><h4>Clase 2 · 80 minutos</h4><ol>' + H.clases.dos.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ol></div>";
@@ -162,22 +161,6 @@
     openDlg(dlg, opener);
     $("[data-cerrar]", dlg).focus();
   }
-  function renderLsa() {
-    var key = H.escenas[nav.scene].id, v = LSA[key], box = $("#lsa-contenido");
-    if (v && v.src) {
-      box.innerHTML = '<video controls preload="none" ' + (v.poster ? 'poster="' + esc(v.poster) + '" ' : "") + 'src="' + esc(v.src) + '">' +
-        (v.captions ? '<track kind="captions" srclang="es" label="Español" src="' + esc(v.captions) + '">' : "") + "</video>" +
-        (v.credit ? '<p class="small muted">' + esc(v.credit) + "</p>" : "") +
-        (v.transcript ? "<details><summary>Transcripción del video</summary><p>" + esc(v.transcript) + "</p></details>" : "");
-    } else {
-      var vcom = H.videoComplementarioLSA;
-      box.innerHTML = '<div class="lsa-pendiente"><p><strong>Aún no hay un video en LSA que interprete la escena «' + esc(H.escenas[nav.scene].nombre) + '».</strong></p>' +
-        '<p>Hay un <strong>video complementario en LSA</strong> de ' + esc(vcom.autor) + ' sobre acoso escolar y ciberacoso. No es una traducción de la historia ni de las consignas.</p>' +
-        '<p><a target="_blank" rel="noopener noreferrer" href="' + esc(vcom.url) + '">Ver el video en YouTube (otra pestaña)</a>. También se ofrece al final de «Investigamos».</p>' +
-        "<p>En la clase, se deben prever apoyos comunicacionales apropiados para participar en LSA durante el debate.</p></div>";
-    }
-  }
-
   /* ------------------------------------------------------------------ lectura en voz alta (opcional) */
   var voz = (function () {
     var supported = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;

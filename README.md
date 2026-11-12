@@ -59,3 +59,6 @@ barrido automático experimental opcional. Ver `ACCESIBILIDAD_PRUEBAS.md`: se ap
 - El enlace y el reproductor de YouTube se ofrecen sin copiar, reeditar o descargar el video. La carga del reproductor requiere una acción explícita. Se puede saltar el video y seguir con toda la secuencia.
 - **Este video no interpreta nuestra historia** y no sustituye la mediación comunicativa necesaria para participar del debate en LSA. Su pertinencia debe validarse con una persona usuaria de LSA. La reproducción incrustada dependerá de que YouTube la permita.
 - Para orientación docente, ver `GUIA_VIDEO_LSA_EN_CLASE.md`.
+
+## Navegación simplificada (noviembre 2026)
+Se retiró el botón independiente «LSA», que antes mostraba un cuadro sin traducciones del caso. Se mantiene **un video externo auténtico en LSA** como complemento didáctico en «Investigamos» y las alternativas escritas y visuales de la historia. Este video no traduce las consignas del sitio y no constituye, por sí solo, accesibilidad lingüística completa en LSA.

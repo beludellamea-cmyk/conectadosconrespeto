@@ -30,3 +30,6 @@ Objetivo: WCAG 2.2 nivel AA. **No se afirma cumplimiento**; falta validación co
 - Otros navegadores (Safari, Firefox, Edge), celulares y tablets reales, voces en español disponibles en cada dispositivo.
 - Comprobar el recurso de YouTube en celular, teclado y lectores de pantalla. Su disponibilidad, sus subtítulos y su permiso para incrustarse no están comprobados.
 - Auditoría WCAG 2.2 AA completa.
+
+## Ajuste de interfaz (noviembre 2026)
+Se quitó el cuadro LSA vacío de la navegación principal. El material audiovisual complementario en LSA sigue visible al final de «Investigamos». No se presenta como interpretación completa del recurso.
