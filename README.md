@@ -53,3 +53,10 @@ No se piden nombres ni datos personales. Decisiones, ideas, acuerdos y ajustes s
 - Foto ficticia creada para la simulación educativa (paquete del proyecto).
 - Tipografía Atkinson Hyperlegible © Braille Institute of America, licencia SIL OFL 1.1 (`assets/fonts/LICENSE-Atkinson-Hyperlegible.txt`).
 - Íconos dibujados a mano como SVG en línea.
+
+
+## Mejora visual e interacción de decisiones (noviembre 2026)
+- `css/experiencia-visual.css` y `js/experiencia-visual.js` añaden diseño de publicación simulada y comentarios con pistas visuales, tarjetas de decisión, lectura optativa de opciones y confirmación antes de ver consecuencias.
+- Las mejoras complementan la accesibilidad existente: textos reales, teclado, contraste, ampliación, comunicación CAA y ausencia de tiempos límite. Los emojis se acompañan de texto y no son la única señal.
+- La síntesis de voz depende de la disponibilidad de voces del navegador; la LSA auténtica y la prueba con pulsador físico siguen pendientes.
+- Comprobar en el sitio publicado la lectura, el recorrido con Tab/Enter, zoom, pantalla móvil y compatibilidad con el barrido experimental.

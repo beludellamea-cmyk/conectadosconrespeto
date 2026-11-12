@@ -1,0 +1,116 @@
+/* Mejoras visuales progresivas — no sustituyen el contenido HTML accesible */
+:root { --experiencia-sombra: 0 .65rem 1.8rem rgba(43,41,135,.12); }
+.hero {
+  position: relative;
+  background: var(--hero-bg);
+  border-color: var(--primary);
+  box-shadow: var(--experiencia-sombra);
+}
+.hero-text .lead { max-width: 43rem; }
+.historia-preview { width: 100%; max-width: 27rem; margin: auto; position: relative; }
+.historia-preview figure { margin: 0; background: var(--surface); padding: .7rem; border: 3px solid var(--border-strong); border-radius: 1.5rem; box-shadow: var(--experiencia-sombra); transform: rotate(1deg); }
+.historia-preview img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 1rem; }
+.historia-preview figcaption { font-size: .95rem; color: var(--text); font-weight: 700; padding: .6rem .3rem .1rem; }
+.historia-avisos { display: grid; gap: .55rem; margin: .75rem 0 0; }
+.historia-avisos p { margin: 0; border-radius: .85rem; border: 2px solid var(--border-strong); background: var(--surface); padding: .4rem .7rem; font-weight: 700; font-size: .97rem; }
+.ruta-card { transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+.ruta-card:hover { transform: translateY(-.15rem); box-shadow: var(--experiencia-sombra); }
+.ruta-t::before { font-size: 1.25rem; margin-right: .35rem; }
+.ruta li:nth-child(1) .ruta-t::before { content: "📱"; }
+.ruta li:nth-child(2) .ruta-t::before { content: "🔎"; }
+.ruta li:nth-child(3) .ruta-t::before { content: "🤝"; }
+.ruta li:nth-child(4) .ruta-t::before { content: "💡"; }
+.caso-resumen { background: var(--surface); border: 2px solid var(--border-strong); border-radius: 1.25rem; padding: 1rem 1.1rem; margin: 1rem 0 1.3rem; }
+.caso-resumen h3 { margin: 0 0 .55rem; }
+.caso-resumen ul { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; padding: 0; margin: 0; }
+.caso-resumen li { padding: .5rem .75rem; border: 2px solid var(--border); border-radius: .85rem; background: var(--soft); font-weight: 700; margin: 0; }
+.caso-resumen li span { font-size: 1.2rem; vertical-align: -.1em; margin-right: .25rem; }
+#feed-contenido { display: grid; gap: 1rem; align-items: start; }
+#feed-contenido .post, #feed-contenido .comentarios-wrap { max-width: none; min-width: 0; }
+.post { border: 2px solid var(--primary); border-radius: 1.35rem; overflow: hidden; box-shadow: var(--experiencia-sombra); }
+.post-head { background: var(--soft); padding: .8rem 1rem; }
+.post-text { font-size: 1.23rem; font-weight: 700; line-height: 1.55; padding: .9rem 1rem; }
+.post-figure img { max-height: 24rem; object-fit: cover; object-position: center; }
+.post .post-figure { position: relative; }
+.post-figure figcaption { background: var(--soft); padding: .55rem 1rem; }
+.post-contexto { font-weight: 700; color: var(--primary-dark); font-size: .95rem; margin: .2rem 0 0; }
+.info-reacciones { display: flex; flex-wrap: wrap; gap: .5rem; padding: .65rem 1rem; border-block: 2px solid var(--border); }
+.info-reacciones span { background: var(--soft); border-radius: 999px; padding: .2rem .7rem; font-size: .92rem; font-weight: 700; }
+.comentarios-titulo { margin: .4rem 0; }
+.comments { gap: .7rem; }
+.comment { border-radius: 1rem; border-width: 2px; border-left: .45rem solid var(--primary); box-shadow: var(--shadow); background: var(--surface); }
+.comment[data-personaje="sofi"] { border-left-color: var(--secondary); }
+.comment[data-personaje="bruno"] { border-left-color: var(--accent); }
+.comment[data-personaje="mica"] { border-left-color: var(--secondary); }
+.comment .avatar { background: var(--soft); }
+.comment-emocion { font-size: 1.4rem; margin-left: auto; line-height: 1; }
+.comment-text { line-height: 1.55; }
+.comment-rol { color: var(--muted); font-size: .92rem; margin: .2rem 0 .4rem; font-weight: 700; }
+.escuchar-mensaje { margin-top: .5rem; font-size: .9rem; }
+@media (min-width: 77em) {
+  html:not(.nav-compact) #feed-contenido { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); }
+  html:not(.nav-compact) #feed-contenido .post { margin: 0; }
+  html:not(.nav-compact) #feed-contenido .comments { margin-top: .5rem; }
+}
+.card-inv { overflow: hidden; transition: border-color .15s, box-shadow .15s; }
+.card-inv:hover { border-color: var(--primary); box-shadow: var(--experiencia-sombra); }
+.card-inv-emoji { font-size: 1.8rem; margin-right: .45rem; }
+.card-inv-t { display: inline-flex; align-items: center; flex-wrap: wrap; gap: .2rem; }
+.glos summary { gap: .5rem; font-size: 1.12rem; }
+.glos-emoji { font-size: 1.35rem; margin-right: .3rem; }
+.glos-escuchar { margin: .25rem 0 .8rem; }
+.dilema { border-color: var(--primary); box-shadow: var(--experiencia-sombra); }
+.dilema > .eyebrow { display: inline-block; background: var(--soft); border: 2px solid var(--border); border-radius: 999px; padding: .25rem .7rem; }
+.dilema .situacion { display: flex; gap: 1rem; align-items: center; line-height: 1.5; }
+.dilema .situacion::before { content: "📲"; font-size: 2.3rem; flex: none; }
+.dilema:nth-child(2) .situacion::before { content: "💬"; }
+.opciones { gap: .7rem; align-items: stretch; }
+.opciones li { background: var(--surface); border-radius: 1rem; display: flex; flex-direction: column; gap: .5rem; }
+.opcion { min-height: 9rem; gap: .45rem; border-width: 3px; box-shadow: var(--shadow); }
+.opcion-emoji { font-size: 2.15rem; line-height: 1.1; }
+.opcion-texto { flex: 1; }
+.opcion[data-pendiente="true"] { border-color: var(--secondary); border-width: 5px; padding: calc(1rem - 2px); background: var(--soft); }
+.opcion[data-pendiente="true"]::after { content: "Seleccionada, falta confirmar"; display: block; font-size: .85rem; color: var(--primary-dark); font-weight: 700; }
+.opcion-escuchar { align-self: stretch; min-height: 2.8rem; font-size: .9rem; }
+.confirmacion { border: 3px solid var(--secondary); background: var(--soft); border-radius: 1rem; padding: 1rem; margin-bottom: 1rem; }
+.confirmacion p { margin: 0 0 .75rem; font-size: 1.1rem; font-weight: 700; }
+.confirmacion .btn-row { margin: 0; }
+.consecuencia { box-shadow: var(--experiencia-sombra); }
+.consecuencia h3::before { content: "💡"; margin-right: .5rem; }
+.consecuencia .para-pensar p::before { content: "💭 "; }
+.lectura-extra { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin: .65rem 0 1.2rem; padding: .65rem; background: var(--surface); border: 2px solid var(--border); border-radius: 1rem; }
+.lectura-extra .btn { min-height: 2.8rem; }
+.lectura-extra .lectura-estado { flex: 1 1 100%; margin: 0; color: var(--muted); font-size: .9rem; }
+.lectura-mini { margin: .25rem 0 .8rem; }
+.ideas li { gap: .5rem; }
+.idea-emoticon { font-size: 1.45rem; margin-right: .2rem; }
+.acuerdo label::before { content: "🤝 "; }
+html[data-contrast="alto"] .hero,
+html[data-contrast="alto"] .historia-preview figure,
+html[data-contrast="alto"] .caso-resumen,
+html[data-contrast="alto"] .card-inv,
+html[data-contrast="alto"] .dilema,
+html[data-contrast="alto"] .confirmacion,
+html[data-contrast="alto"] .post { background: var(--surface); color: var(--text); box-shadow: none; }
+html[data-contrast="alto"] .post-contexto,
+html[data-contrast="alto"] .opcion[data-pendiente="true"]::after { color: var(--text); }
+html[data-contrast="alto"] .opcion[data-pendiente="true"] { border-color: var(--secondary); }
+html[data-contrast="alto"] .historia-preview figcaption { color: var(--text); }
+@media (max-width: 45em) {
+  .historia-preview figure { transform: none; }
+  .historia-avisos p { font-size: .9rem; }
+  .caso-resumen ul { display: grid; }
+  .opciones { grid-template-columns: 1fr; }
+  .opcion { min-height: 6.5rem; }
+  .dilema .situacion::before { font-size: 1.8rem; }
+}
+html[data-motion="reducido"] .ruta-card,
+html[data-motion="reducido"] .card-inv { transition: none; }
+html[data-motion="reducido"] .ruta-card:hover { transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .ruta-card, .card-inv { transition: none; }
+  .ruta-card:hover { transform: none; }
+}
+@media print {
+  .lectura-extra, .opcion-escuchar, .confirmacion, .escuchar-mensaje { display: none !important; }
+}
