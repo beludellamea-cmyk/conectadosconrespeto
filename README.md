@@ -43,3 +43,12 @@ Reemplazar `null` por `{ src: "assets/lsa/foto.mp4", captions: "…vtt", transcr
 Teclado completo, foco visible, lectura en voz alta opcional en español, tamaño de texto A+/A−, tres aspectos incluido alto contraste,
 «Reducir movimiento» (la historia queda idéntica, sin animaciones), emojis siempre con texto, sin límites de tiempo,
 barrido automático experimental opcional. Ver `ACCESIBILIDAD_PRUEBAS.md`: se apunta a WCAG 2.2 AA pero **no se declara cumplimiento**.
+
+
+## Mejoras de comprensión visual (noviembre 2026)
+- Bienvenida con propósito claro y tres acciones ilustradas mediante símbolos acompañados de palabras.
+- Antes del conflicto, la foto propone una pregunta de observación sin anticipar todas las respuestas.
+- Desde la evidencia de Lara, la investigación incorpora un esquema de tres pasos que representa cómo circuló la imagen, sin inventar destinatarios ni cantidades.
+- Opciones de decisión, conceptos y acuerdos con símbolos visuales **que no reemplazan los textos**.
+- Bloque opcional «Comunicar una idea sin escribir», con frases seleccionables, visibles y de lectura voluntaria. No reemplaza ningún comunicador de CAA.
+- Guía de producción para completar los apoyos reales en LSA en `GUIA_VIDEOS_LSA.md`.

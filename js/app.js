@@ -305,6 +305,44 @@
     return h;
   }
 
+
+  /* Apoyos visuales: siempre junto a palabras, nunca como única información. */
+  function guiaInicioHtml() {
+    return '<div class="guia-inicio" role="group" aria-label="Qué vamos a hacer en esta historia">' +
+      '<p class="guia-inicio-titulo">¿Qué vamos a hacer?</p>' +
+      '<ol class="guia-inicio-lista">' +
+      '<li><span aria-hidden="true">👀</span><span>Descubrir qué pasó</span></li>' +
+      '<li><span aria-hidden="true">💭</span><span>Pensar qué haríamos</span></li>' +
+      '<li><span aria-hidden="true">🤝</span><span>Crear acuerdos</span></li></ol></div>';
+  }
+  function circulacionHtml() {
+    return '<section class="difusion-visual" aria-labelledby="difusion-t">' +
+      '<h2 id="difusion-t">¿Cómo empezó a circular la foto?</h2>' +
+      '<ol class="difusion-pasos">' +
+      '<li><span class="difusion-icono" aria-hidden="true">📸</span><strong>Nico publica</strong><span>Comparte una foto.</span></li>' +
+      '<li><span class="difusion-icono" aria-hidden="true">💬</span><strong>Grupo 3.º B</strong><span>Sus compañeros la ven.</span></li>' +
+      '<li><span class="difusion-icono" aria-hidden="true">📲</span><strong>Otro grupo</strong><span>Lara avisa que la recibieron.</span></li></ol>' +
+      '<p class="difusion-pregunta">💭 Para pensar: ¿quién puede decidir ahora dónde termina esa imagen?</p>' +
+      '</section>';
+  }
+  var iconosOpciones = {
+    reenviar:"📤", no_intervenir:"👀", acompañar:"🤝", acompanar:"🤝",
+    insultar:"💢", buscar_ayuda:"🙋", ignorar:"🙈"
+  };
+  var iconosConceptos = ["✅", "🔒", "🤝", "📲", "⚠️"];
+  var iconosAcuerdos = ["📸", "🛑", "📵", "💬", "🤝", "🙋", "🔒", "💭", "🗣️", "🌐"];
+  function ayudaComunicacionHtml() {
+    var frases = ["Estoy de acuerdo", "No estoy de acuerdo", "Quiero explicar", "Necesito más tiempo", "Necesito que lo repitan", "Quiero pedir ayuda"];
+    return '<details class="comunicacion-opcional"><summary>💬 Comunicar una idea sin escribir (opcional)</summary>' +
+      '<p class="small">Cualquier estudiante puede elegir una frase y mostrarla al grupo. Se puede seguir usando el comunicador habitual.</p>' +
+      '<div class="frases-comunicacion" role="group" aria-label="Frases para participar">' +
+      frases.map(function(f) { return '<button type="button" class="btn btn-secondary" data-act="comunicar" data-frase="' + esc(f) + '">' + esc(f) + '</button>'; }).join("") +
+      '</div><div class="frase-elegida" hidden>' +
+      '<p class="frase-elegida-texto" role="status" aria-live="polite"></p>' +
+      '<button type="button" class="btn btn-secondary" data-act="oir-frase">' + icon("speaker") + 'Escuchar la frase</button>' +
+      '</div></details>';
+  }
+
   var scenes = {
     /* ---- 1. INICIO ---- */
     inicio: {
@@ -314,13 +352,13 @@
           '<p class="eyebrow">Formación Ética y Ciudadana · 3.º año</p>' +
           '<h1 id="h-inicio" class="titulo-grande" tabindex="-1">CONECTADOS CON RESPETO</h1>' +
           '<p class="subtitulo">Una foto, cientos de miradas</p>' +
-          '<p class="lead">Una foto se compartió sin permiso y empezó a circular. Investigá qué pasó, analizá las decisiones y ayudá a construir acuerdos para una convivencia digital más respetuosa.</p>' +
-          '<p class="badge">Simulación educativa ficticia</p></div>' +
-          '<div class="phone" aria-hidden="true"><div class="phone-notch"></div><div class="phone-screen"><div class="lock"><p class="lock-hora">08:04</p><p class="lock-sub">Antes de empezar la clase</p><div class="lock-fill"></div><p class="lock-sub">' + icon("lock") + " Simulación ficticia</p></div></div></div></section>";
+          '<p class="lead">Una foto aparece en el grupo de 3.º B. ¿Qué pasa cuando alguien la comparte y otros empiezan a comentar? Vas a descubrir la historia, pensar cómo actuar y construir acuerdos para convivir con respeto en las redes.</p>' +
+          guiaInicioHtml() + "</div>" +
+          '<div class="phone" aria-hidden="true"><div class="phone-notch"></div><div class="phone-screen"><div class="lock"><p class="lock-hora">08:04</p><p class="lock-sub">Grupo escolar · 3.º B</p><div class="portada-tema"><span aria-hidden="true">💬</span><strong>Una historia sobre nuestras decisiones en internet</strong></div><div class="lock-fill"></div><p class="lock-sub">' + icon("lock") + " Simulación ficticia</p></div></div></div></section>";
       },
-      bar: function () { return { next: "COMENZAR", backHidden: true }; },
-      speech: function () { return "Conectados con respeto. Una foto, cientos de miradas. Una foto se compartió sin permiso y empezó a circular. Investigá qué pasó, analizá las decisiones y ayudá a construir acuerdos para una convivencia digital más respetuosa. Simulación educativa ficticia."; },
-      live: function () { return "Inicio. Conectados con respeto. Para empezar, activá Comenzar."; }
+      bar: function () { return { next: "Descubrir qué pasó", backHidden: true }; },
+      speech: function () { return "Conectados con respeto. Una foto, cientos de miradas. Una historia ficticia sobre privacidad, consentimiento y respeto en las redes. Vas a descubrir qué pasó en el grupo de tercero B, pensar qué harías y construir acuerdos de convivencia digital."; },
+      live: function () { return "Inicio. Conectados con respeto. En esta historia descubrirás un caso, pensarás decisiones y construirás acuerdos. Para empezar, activá Descubrir qué pasó."; }
     },
 
     /* ---- 2. NOTIFICACIÓN ---- */
@@ -329,7 +367,7 @@
       render: function () {
         return '<section class="escena fono-escena" aria-labelledby="h-notif"><div class="relato-col">' + eyebrow(2) +
           '<h1 id="h-notif" class="titulo-grande" tabindex="-1" style="font-size:clamp(1.8rem,1.2rem + 3vw,3rem)">Una notificación</h1>' +
-          '<p class="lead">Empieza la clase y suena una notificación en el celular.</p>' +
+          '<p class="lead">Aparece una notificación en el celular. Abrila para descubrir qué sucede en el grupo.</p>' +
           '<p class="nota-lugar small">Abrila cuando quieras. No hay apuro.</p></div>' +
           '<div class="phone"><div class="phone-notch"></div><div class="phone-screen"><div class="lock"><p class="lock-hora">08:05</p><p class="lock-sub">Mensajes</p>' +
           '<button type="button" class="notif" data-act="abrir-notif"><span class="notif-ico" aria-hidden="true">' + icon("bell") + "</span>" +
@@ -337,7 +375,7 @@
           '<div class="lock-fill"></div></div></div></div></section>';
       },
       bar: function () { return { next: "", nextHidden: true }; },
-      speech: function () { return "Empieza la clase y suena una notificación en el celular: " + D.notification + "."; },
+      speech: function () { return "Aparece una notificación en el celular: " + D.notification + "."; },
       live: function () { return "Una notificación: " + D.notification + ". Activá el botón de la notificación para abrirla."; }
     },
 
@@ -347,12 +385,12 @@
       render: function () {
         return '<section class="escena fono-escena" aria-labelledby="h-foto"><div class="relato-col">' + eyebrow(3) +
           '<h1 id="h-foto" class="titulo-grande" tabindex="-1" style="font-size:clamp(1.8rem,1.2rem + 3vw,3rem)">La foto</h1>' +
-          '<p class="lead">Una foto del grupo, publicada por Nico.</p><p class="nota-lugar small">Mirala con calma. Podés ampliarla o leer su descripción.</p></div>' +
+          '<p class="lead">Nico publicó una foto del grupo.</p><p class="pregunta-foto">👀 Observá: ¿todas las personas sabían que iba a publicarse?</p><p class="nota-lugar small">Podés ampliar la foto o leer su descripción.</p></div>' +
           '<div class="phone"><div class="phone-notch"></div><div class="phone-screen"><div class="phone-app"><div class="app-head"><strong>Grupo ' + esc(D.groupName) + '</strong><span>red ficticia</span></div>' +
           '<div class="app-body">' + postHtml() + "</div></div></div></div></section>";
       },
       bar: function () { return { next: "Ver los mensajes", back: "Volver a la notificación" }; },
-      speech: function () { return "Nico, a las " + D.post.time + ", publicó una foto en el grupo. Dice: " + hablado(D.post.text) + ". " + D.image.alt + " " + D.image.longDescription; },
+      speech: function () { return "Nico, a las " + D.post.time + ", publicó una foto en el grupo. Dice: " + hablado(D.post.text) + ". ¿Todas las personas sabían que iba a publicarse? " + D.image.alt + " " + D.image.longDescription; },
       live: function () { return "La foto. Nico publicó una foto en el grupo " + D.groupName + ". " + D.image.alt; }
     },
 
@@ -425,6 +463,7 @@
             h += '<li' + (i === b && o.forward ? ' class="nuevo"' : "") + '><span class="hora">' + esc(e.hora) + '</span> <span class="que">' + esc(e.quien) + ": " + esc(e.que) + '</span><span class="cita">«' + esc(e.cita) + "»</span></li>";
           }
           h += "</ol>";
+          if (b >= 3) h += circulacionHtml();
         } else if (b === 6) {
           h += '<p class="lead">¿Qué sabemos con seguridad y qué necesitamos averiguar?</p><div class="dos-col"><div class="card"><h2>Sabemos</h2><ul>' +
             H.sabemos.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + '</ul></div><div class="card"><h2>Falta averiguar</h2><ul>' +
@@ -433,7 +472,7 @@
           var k = b - 7, cpt = H.conceptos[k], g = D.glossary[k];
           h += '<p class="lead">Cinco ideas para entender lo que pasó.</p><ol class="tira" aria-label="Conceptos">' +
             H.conceptos.map(function (c, j) { return '<li class="' + (j < k ? "hecho" : (j === k ? "actual" : "")) + '"' + (j === k ? ' aria-current="step"' : "") + ">" + (j < k ? "✓ " : "") + esc(c.etiqueta || c.clave) + "</li>"; }).join("") + "</ol>" +
-            '<div class="card concepto revela"><h2>' + esc(cpt.etiqueta || g.term) + '</h2><p class="def">' + esc(g.definition) + '</p><p class="en-caso"><strong>En el caso:</strong> ' + esc(cpt.enElCaso) + "</p></div>";
+            '<div class="card concepto revela"><h2><span class="concepto-picto" aria-hidden="true">' + iconosConceptos[k] + '</span>' + esc(cpt.etiqueta || g.term) + '</h2><p class="def">' + esc(g.definition) + '</p><p class="en-caso"><strong>En el caso:</strong> ' + esc(cpt.enElCaso) + "</p></div>";
         } else {
           h += '<p class="lead">¿Hay señales de hostigamiento reiterado? Elegí una señal para ver qué sabemos.</p><div class="card"><div class="chips" role="group" aria-label="Señales para analizar">' +
             H.senales.map(function (s, j) { return '<button type="button" class="chip" data-act="senal" data-i="' + j + '" aria-pressed="' + (ui.senal === j ? "true" : "false") + '">' + esc(s.clave) + "</button>"; }).join("") +
@@ -447,7 +486,7 @@
         return { next: n, back: b > 0 ? "Volver un paso" : "Volver a la pausa", note: b <= 5 ? "Pista " + (b + 1) + " de 6" : b >= 7 && b <= 11 ? "Concepto " + (b - 6) + " de 5" : "" };
       },
       speech: function (b) {
-        if (b <= 5) { var e = H.linea[b]; return "A las " + e.hora + ", " + e.quien + ": " + e.que + " " + hablado(e.cita); }
+        if (b <= 5) { var e = H.linea[b]; return "A las " + e.hora + ", " + e.quien + ": " + e.que + " " + hablado(e.cita) + (b >= 3 ? " Esquema de circulación: Nico publica una foto, se comparte en el grupo tercero B y Lara avisa que llegó a otro grupo. ¿Quién decide dónde termina la imagen?" : ""); }
         if (b === 6) return "Sabemos: " + H.sabemos.join(" ") + " Falta averiguar: " + H.falta.join(" ");
         if (b <= 11) { var c = H.conceptos[b - 7], g = D.glossary[b - 7]; return (c.etiqueta || g.term) + ". " + g.definition + " En el caso: " + c.enElCaso; }
         return (ui.senal !== null ? H.senales[ui.senal].clave + ". " + H.senales[ui.senal].evidencia + " " : "¿Hay señales de hostigamiento reiterado? Elegí una señal. ") + H.conclusionAcoso;
@@ -472,11 +511,11 @@
           d.options.forEach(function (o, i) {
             var exp = st.explored.indexOf(o.id) >= 0;
             h += '<li><button type="button" class="opcion' + (exp ? " explorada" : "") + '" data-act="opcion" data-i="' + i + '" aria-pressed="' + (u.sel === i ? "true" : "false") + '">' +
-              '<span class="opcion-letra" aria-hidden="true">' + LETRAS[i] + "</span><span>" + esc(o.label) + "</span>" +
+              '<span class="opcion-letra" aria-hidden="true">' + LETRAS[i] + '</span><span class="opcion-picto" aria-hidden="true">' + (iconosOpciones[o.id] || "💭") + '</span><span>' + esc(o.label) + "</span>" +
               '<span class="opcion-marca sel">' + icon("check") + "Opción elegida</span><span class=\"opcion-marca exp\">" + icon("check") + "Ya la exploraste</span></button>" +
               '<button type="button" class="btn btn-secondary" data-act="oir-op" data-i="' + i + '">' + icon("speaker") + "Escuchar la opción " + LETRAS[i] + "</button></li>";
           });
-          h += "</ul>";
+          h += "</ul>" + ayudaComunicacionHtml();
         } else {
           var o = d.options[u.sel];
           h += '<div class="consecuencia"><div class="dibujo" role="img" aria-label="Ilustración esquemática de la consecuencia, explicada en el texto">' + dibujo(H.dibujos[o.id]) + "</div>" +
@@ -571,7 +610,7 @@
     var n = state.agreements.length, max = D.maxAgreements, i = ui.idea, total = D.suggestedAgreements.length;
     var usada = state.agreements.some(function (a) { return a.src === i; }), lleno = n >= max;
     $("#idea-card").innerHTML =
-      '<p class="idea-num">Idea ' + (i + 1) + " de " + total + '</p><p class="idea-txt">' + esc(D.suggestedAgreements[i]) + "</p>" +
+      '<p class="idea-num">Idea ' + (i + 1) + " de " + total + '</p><span class="idea-picto" aria-hidden="true">' + (iconosAcuerdos[i] || "🤝") + '</span><p class="idea-txt">' + esc(D.suggestedAgreements[i]) + "</p>" +
       (usada ? '<p class="idea-estado">' + icon("check") + " Ya está en el decálogo</p>" : "") +
       '<div class="btn-row"><button type="button" class="btn btn-primary" data-act="sumar" aria-disabled="' + (usada || lleno) + '">' + icon("plus") + "Sumar al decálogo</button></div>" +
       '<div class="btn-row"><button type="button" class="btn btn-secondary" data-act="idea-ant" aria-disabled="' + (i === 0) + '">' + icon("left") + 'Idea anterior</button><button type="button" class="btn btn-secondary" data-act="idea-sig" aria-disabled="' + (i === total - 1) + '">Idea siguiente' + icon("right") + "</button></div>" +
@@ -805,7 +844,20 @@
 
   function stageAction(a, t) {
     var id = H.escenas[nav.scene].id;
-    if (a === "abrir-notif") { setPos(nav.scene + 1, 0, { forward: true, animate: true }); }
+    if (a === "comunicar") {
+      var panel = t.closest(".comunicacion-opcional");
+      var chosen = t.getAttribute("data-frase") || "";
+      var output = $(".frase-elegida", panel);
+      $(".frase-elegida-texto", panel).textContent = chosen;
+      output.hidden = false;
+      $("[data-act='comunicar']", panel).forEach(function (b) { b.setAttribute("aria-pressed", b === t ? "true" : "false"); });
+      announce("Frase seleccionada: " + chosen + ". Podés mostrarla al grupo o escucharla.");
+    }
+    else if (a === "oir-frase") {
+      var frase = $(".frase-elegida-texto", t.closest(".comunicacion-opcional"));
+      if (frase) voz.speak(frase.textContent);
+    }
+    else if (a === "abrir-notif") { setPos(nav.scene + 1, 0, { forward: true, animate: true }); }
     else if (a === "ampliar") openFoto(t);
     else if (a === "senal") { var i = parseInt(t.getAttribute("data-i"), 10); ui.senal = ui.senal === i ? null : i; $$("[data-act=senal]").forEach(function (b, j) { b.setAttribute("aria-pressed", ui.senal === j ? "true" : "false"); }); renderSenal(); if (ui.senal !== null) story(H.senales[ui.senal].clave + ". " + H.senales[ui.senal].evidencia); }
     else if (a === "opcion") {
