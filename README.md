@@ -60,3 +60,11 @@ No se piden nombres ni datos personales. Decisiones, ideas, acuerdos y ajustes s
 - Las mejoras complementan la accesibilidad existente: textos reales, teclado, contraste, ampliación, comunicación CAA y ausencia de tiempos límite. Los emojis se acompañan de texto y no son la única señal.
 - La síntesis de voz depende de la disponibilidad de voces del navegador; la LSA auténtica y la prueba con pulsador físico siguen pendientes.
 - Comprobar en el sitio publicado la lectura, el recorrido con Tab/Enter, zoom, pantalla móvil y compatibilidad con el barrido experimental.
+
+
+## Interfaz de descubrimiento progresivo (11/11/2026)
+- La presentación sigue el recorrido: Inicio → El caso (publicación, cinco comentarios y dos preguntas de a uno) → Investigamos (cuatro evidencias, conceptos y debate por etapas) → Decidimos (un dilema por vez, confirmar selección antes de leer la consecuencia) → Construimos (una sugerencia de acuerdo visible cada vez).
+- «Cambiar etapa» permite a la docente saltar entre los cuatro momentos sin bloquear participantes. No hay temporizadores ni puntajes.
+- «Escuchar / Pausar / Repetir» lee el contenido visible del momento, según la voz en español que ofrezca el dispositivo; el texto sigue disponible para todos.
+- Accesibilidad original conservada: A+/A− desde ajustes, contraste, teclado, barrido experimental, fotos descriptas y lugares preparados para videos auténticos en LSA.
+- Pendiente: prueba manual con NVDA, pulsador real, dispositivos móviles y materiales LSA.

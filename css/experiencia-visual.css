@@ -1,116 +1,183 @@
-/* Mejoras visuales progresivas — no sustituyen el contenido HTML accesible */
-:root { --experiencia-sombra: 0 .65rem 1.8rem rgba(43,41,135,.12); }
-.hero {
-  position: relative;
-  background: var(--hero-bg);
-  border-color: var(--primary);
-  box-shadow: var(--experiencia-sombra);
+/* CONECTADOS CON RESPETO — Recorrido guiado y descubrimiento progresivo
+   Esta capa simplifica la interfaz sin tocar las funciones base de accesibilidad.
+   Prioriza foco, lectura, navegación por teclado y claridad a alto zoom. */
+body.journey-mode { background:var(--bg); }
+body.journey-mode .layout { display:block!important; max-width:none; }
+body.journey-mode .side-nav { display:none!important; }
+body.journey-mode main { max-width:58rem; margin:0 auto; padding:1.2rem clamp(.75rem,3vw,2rem) 2.8rem; }
+body.journey-mode main > .view { max-width:100%; }
+body.journey-mode .header-row { max-width:62rem; }
+body.journey-mode .site-header { box-shadow:0 2px 10px rgba(17,24,39,.055); }
+body.journey-mode .brand-logo { width:2.15rem; height:2.15rem; }
+body.journey-mode .brand-name { font-size:1.04rem; }
+body.journey-mode .brand-sub,body.journey-mode #badge-sim,
+body.journey-mode #btn-a-menos,body.journey-mode #btn-a-mas,body.journey-mode #btn-menu { display:none!important; }
+body.journey-mode .enbreve,body.journey-mode .nav-pie,
+body.journey-mode .ruta,body.journey-mode .view[data-ruta-vista="inicio"]>.h-sec,
+body.journey-mode .view[data-ruta-vista="inicio"]>.muted,
+body.journey-mode .view[data-ruta-vista="inicio"]>.nota { display:none!important; }
+body.journey-mode .view { animation:none; }
+body.journey-mode .view > .lead { max-width:44rem; font-size:1.13rem; color:var(--muted); margin-bottom:1rem; }
+body.journey-mode .view > h1 { font-size:clamp(1.8rem,3.5vw,2.5rem); }
+body.journey-mode .view > .eyebrow { font-size:.83rem; letter-spacing:.09em; }
+body.journey-mode .badge { font-size:.83rem; }
+body.journey-mode .h-sec { margin-top:1rem; }
+body.journey-mode .btn { min-height:3.2rem; }
+body.journey-mode .a11y-panel { position:relative; z-index:3; }
+/* Barra superior: solo el momento activo, control de lectura y acceso discreto a etapas */
+.journey-bar { margin:0 0 1.25rem; border:2px solid var(--border); background:var(--surface);
+  border-radius:1.05rem; padding:.8rem 1rem; display:grid; gap:.6rem; }
+.journey-top { display:flex; flex-wrap:wrap; gap:.6rem 1rem; align-items:center; justify-content:space-between; }
+.journey-current { margin:0; font-size:1rem; font-weight:700; color:var(--text); }
+.journey-meta { margin:0; color:var(--muted); font-size:.85rem; }
+.journey-bar progress { appearance:none; -webkit-appearance:none; width:100%; height:.45rem; border:0;
+  border-radius:20rem; background:var(--soft); overflow:hidden; }
+.journey-bar progress::-webkit-progress-bar { background:var(--soft); }
+.journey-bar progress::-webkit-progress-value { background:var(--primary); }
+.journey-bar progress::-moz-progress-bar { background:var(--primary); }
+.journey-link { margin:0; font-size:.86rem; }
+.journey-link summary { cursor:pointer; min-height:2.7rem; display:inline-flex; align-items:center;
+  border:2px solid var(--border-strong); color:var(--text); padding:.35rem .75rem; border-radius:.75rem; font-weight:700; }
+.journey-link[open] summary { margin-bottom:.6rem; }
+.journey-link nav { display:grid; gap:.35rem; background:var(--soft); padding:.8rem; border-radius:.75rem; }
+.journey-link nav a { display:block; font-weight:700; padding:.45rem .5rem; border-radius:.45rem; color:var(--link); }
+.journey-read { display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
+.journey-read .btn { min-height:2.75rem; padding:.42rem .75rem; font-size:.88rem; }
+.journey-read-msg { color:var(--muted); font-size:.83rem; flex:1 1 100%; margin:0; }
+.journey-read-msg:empty { display:none; }
+.journey-step { margin:1rem 0 1.2rem; padding:1.15rem clamp(.9rem,3vw,1.5rem);
+  background:var(--soft); border:2px solid var(--border); border-radius:1.15rem; }
+.journey-step h2 { font-size:clamp(1.25rem,2.6vw,1.6rem); margin:0 0 .35rem; }
+.journey-step p { margin:0; color:var(--text); }
+.journey-controls { display:flex; justify-content:space-between; gap:.75rem; flex-wrap:wrap; margin:1.5rem 0 1rem; }
+.journey-controls .btn { flex:1 1 11rem; }
+.journey-controls .btn-primary { flex:1 1 16rem; }
+.journey-finish { padding:1.4rem; background:var(--surface); border:2px solid var(--primary);
+  border-radius:1.3rem; margin:1rem 0; text-align:left; }
+.journey-finish h2 { margin-top:0; }
+.journey-finish p { margin-bottom:.65rem; }
+.journey-finish .btn { margin-top:.4rem; }
+.journey-skip-note { color:var(--muted); font-size:.88rem; margin:.3rem 0; }
+/* Inicio limpio: una historia, una imagen y un botón de entrada */
+body.journey-mode .hero { display:grid; gap:1.25rem; background:var(--hero-bg);
+  box-shadow:none; border:2px solid var(--border); padding:clamp(1.15rem,3vw,2rem); margin:0; border-radius:1.35rem; }
+body.journey-mode .hero h1 { font-size:clamp(1.85rem,4vw,3rem); }
+body.journey-mode .hero-text .lead { font-size:1.12rem; }
+body.journey-mode .hero .actions { margin-top:1.25rem; }
+body.journey-mode .hero .actions .btn { margin:0; }
+body.journey-mode .hero .actions [data-abrir-a11y] { display:none; }
+body.journey-mode .hero-art { order:-1; }
+.journey-hero-photo { position:relative; max-width:24rem; margin:0 auto; }
+.journey-hero-photo img { width:100%; aspect-ratio:16/9; object-fit:cover; display:block;
+  border-radius:1rem; border:3px solid var(--border-strong); }
+.journey-hero-photo p { color:var(--text); background:var(--surface); border:2px solid var(--border-strong);
+  border-radius:.75rem; padding:.45rem .8rem; position:relative; margin:-1rem .7rem 0;
+  font-weight:700; font-size:.97rem; box-shadow:var(--shadow); }
+@media(min-width:50rem) {
+  body.journey-mode .hero { grid-template-columns:1.3fr .9fr; align-items:center; }
+  body.journey-mode .hero-art { order:1; }
 }
-.hero-text .lead { max-width: 43rem; }
-.historia-preview { width: 100%; max-width: 27rem; margin: auto; position: relative; }
-.historia-preview figure { margin: 0; background: var(--surface); padding: .7rem; border: 3px solid var(--border-strong); border-radius: 1.5rem; box-shadow: var(--experiencia-sombra); transform: rotate(1deg); }
-.historia-preview img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 1rem; }
-.historia-preview figcaption { font-size: .95rem; color: var(--text); font-weight: 700; padding: .6rem .3rem .1rem; }
-.historia-avisos { display: grid; gap: .55rem; margin: .75rem 0 0; }
-.historia-avisos p { margin: 0; border-radius: .85rem; border: 2px solid var(--border-strong); background: var(--surface); padding: .4rem .7rem; font-weight: 700; font-size: .97rem; }
-.ruta-card { transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
-.ruta-card:hover { transform: translateY(-.15rem); box-shadow: var(--experiencia-sombra); }
-.ruta-t::before { font-size: 1.25rem; margin-right: .35rem; }
-.ruta li:nth-child(1) .ruta-t::before { content: "📱"; }
-.ruta li:nth-child(2) .ruta-t::before { content: "🔎"; }
-.ruta li:nth-child(3) .ruta-t::before { content: "🤝"; }
-.ruta li:nth-child(4) .ruta-t::before { content: "💡"; }
-.caso-resumen { background: var(--surface); border: 2px solid var(--border-strong); border-radius: 1.25rem; padding: 1rem 1.1rem; margin: 1rem 0 1.3rem; }
-.caso-resumen h3 { margin: 0 0 .55rem; }
-.caso-resumen ul { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; padding: 0; margin: 0; }
-.caso-resumen li { padding: .5rem .75rem; border: 2px solid var(--border); border-radius: .85rem; background: var(--soft); font-weight: 700; margin: 0; }
-.caso-resumen li span { font-size: 1.2rem; vertical-align: -.1em; margin-right: .25rem; }
-#feed-contenido { display: grid; gap: 1rem; align-items: start; }
-#feed-contenido .post, #feed-contenido .comentarios-wrap { max-width: none; min-width: 0; }
-.post { border: 2px solid var(--primary); border-radius: 1.35rem; overflow: hidden; box-shadow: var(--experiencia-sombra); }
-.post-head { background: var(--soft); padding: .8rem 1rem; }
-.post-text { font-size: 1.23rem; font-weight: 700; line-height: 1.55; padding: .9rem 1rem; }
-.post-figure img { max-height: 24rem; object-fit: cover; object-position: center; }
-.post .post-figure { position: relative; }
-.post-figure figcaption { background: var(--soft); padding: .55rem 1rem; }
-.post-contexto { font-weight: 700; color: var(--primary-dark); font-size: .95rem; margin: .2rem 0 0; }
-.info-reacciones { display: flex; flex-wrap: wrap; gap: .5rem; padding: .65rem 1rem; border-block: 2px solid var(--border); }
-.info-reacciones span { background: var(--soft); border-radius: 999px; padding: .2rem .7rem; font-size: .92rem; font-weight: 700; }
-.comentarios-titulo { margin: .4rem 0; }
-.comments { gap: .7rem; }
-.comment { border-radius: 1rem; border-width: 2px; border-left: .45rem solid var(--primary); box-shadow: var(--shadow); background: var(--surface); }
-.comment[data-personaje="sofi"] { border-left-color: var(--secondary); }
-.comment[data-personaje="bruno"] { border-left-color: var(--accent); }
-.comment[data-personaje="mica"] { border-left-color: var(--secondary); }
-.comment .avatar { background: var(--soft); }
-.comment-emocion { font-size: 1.4rem; margin-left: auto; line-height: 1; }
-.comment-text { line-height: 1.55; }
-.comment-rol { color: var(--muted); font-size: .92rem; margin: .2rem 0 .4rem; font-weight: 700; }
-.escuchar-mensaje { margin-top: .5rem; font-size: .9rem; }
-@media (min-width: 77em) {
-  html:not(.nav-compact) #feed-contenido { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); }
-  html:not(.nav-compact) #feed-contenido .post { margin: 0; }
-  html:not(.nav-compact) #feed-contenido .comments { margin-top: .5rem; }
+/* El caso: una publicación O un mensaje visible por pantalla */
+body.journey-mode #t-feed,body.journey-mode #feed>.small.muted,
+body.journey-mode #barra-voz,body.journey-mode #btn-comentarios { display:none!important; }
+body.journey-mode .notif-wrap { margin:1.4rem auto; max-width:38rem; }
+body.journey-mode .notif { width:100%; max-width:none; animation:none; border-width:2px;
+  border-color:var(--primary); border-radius:1.2rem; }
+body.journey-mode #feed-contenido { display:block; max-width:42rem; margin:0 auto; }
+body.journey-mode .post { max-width:none; border:2px solid var(--border-strong); margin:0;
+  border-radius:1.1rem; box-shadow:none; overflow:hidden; }
+body.journey-mode .post-head { background:var(--soft); padding:1rem 1.1rem; }
+body.journey-mode .post-text { font-size:1.22rem; font-weight:700; padding:1rem 1.1rem; }
+body.journey-mode .post-figure img { display:block; max-height:25rem; object-fit:cover; }
+body.journey-mode .post-actions { padding:1rem; gap:.5rem; }
+body.journey-mode .post-figure figcaption { font-size:.88rem; }
+body.journey-mode .comentarios-wrap { max-width:42rem; }
+body.journey-mode .comments { display:block; margin:.6rem 0; padding:0; }
+body.journey-mode .comment { border:2px solid var(--border-strong); border-left:6px solid var(--primary);
+  background:var(--surface); border-radius:1rem; padding:1.15rem 1.2rem; box-shadow:none; }
+body.journey-mode .comment[data-personaje="Sofi"] { border-left-color:var(--secondary); }
+body.journey-mode .comment[data-personaje="Mica"] { border-left-color:var(--secondary); }
+body.journey-mode .comment-text { font-size:clamp(1.05rem,2vw,1.3rem); line-height:1.6; }
+.journey-emotion { display:inline-block; margin-left:auto; font-size:1.6rem; }
+.journey-mini-context { max-width:42rem; margin:0 auto .7rem; padding:.7rem 1rem;
+  border-radius:.75rem; background:var(--surface); border:2px solid var(--border); color:var(--muted); }
+body.journey-mode .caso-preguntas { max-width:42rem; margin:0 auto; }
+body.journey-mode .caso-preguntas .h-sec { display:none; }
+body.journey-mode .caso-preguntas p { font-size:.97rem; }
+body.journey-mode .pregunta-card { padding:1.1rem; max-width:none; box-shadow:none; }
+body.journey-mode .pregunta-card textarea { min-height:6rem; }
+/* Investigación: una pista por vez */
+body.journey-mode #inv-abrir-todas,body.journey-mode #inv-cerrar-todas { display:none!important; }
+body.journey-mode .cards-inv { display:block; margin:0 auto; max-width:44rem; }
+body.journey-mode .card-inv { border:2px solid var(--border-strong); box-shadow:none; }
+body.journey-mode .card-inv-btn { min-height:4.25rem; padding:1.1rem; }
+body.journey-mode .card-inv-body { padding:0 1.2rem 1.2rem; }
+body.journey-mode .view[data-ruta-vista="investigamos"]>.box { max-width:44rem; margin:0 auto; box-shadow:none; }
+body.journey-mode .glosario { display:grid; gap:.65rem; }
+body.journey-mode .glos { border-radius:.85rem; }
+body.journey-mode .glos summary { font-size:1.14rem; }
+body.journey-mode .glos p { padding:0 .2rem .7rem; }
+.journey-term { font-size:1.35rem; margin-right:.5rem; }
+/* Decisiones: un dilema con sus tres opciones necesarias, sin adelantar consecuencias */
+body.journey-mode #dilemas { max-width:48rem; margin:0 auto; }
+body.journey-mode .dilema { border:0; box-shadow:none; padding:0; margin:.4rem auto; background:transparent; }
+body.journey-mode .dilema>.eyebrow { display:none; }
+body.journey-mode .dilema>h2 { font-size:1.4rem; }
+body.journey-mode .dilema .situacion { margin:.65rem 0 1rem; font-size:1.15rem; padding:1rem; border-radius:1rem; }
+body.journey-mode .opciones { display:grid; grid-template-columns:1fr; gap:.75rem; }
+body.journey-mode .opciones li { margin:0; display:flex; gap:.45rem; flex-direction:column; }
+body.journey-mode .opcion { border-width:2px; border-radius:1rem; min-height:5.1rem;
+  padding:.95rem 1.05rem; box-shadow:none; gap:.5rem; display:flex; align-items:center; flex-direction:row; }
+body.journey-mode .opcion:hover { background:var(--soft); }
+body.journey-mode .opcion[aria-pressed="true"],body.journey-mode .opcion[data-pendiente="true"] {
+  border:4px solid var(--primary); background:var(--soft); padding:calc(.95rem - 2px) calc(1.05rem - 2px); }
+body.journey-mode .opcion-letra { flex:none; }
+.journey-choice-icon { font-size:1.6rem; line-height:1.2; flex:none; }
+body.journey-mode .opcion-marca { font-size:.85rem; }
+.journey-listen-choice { align-self:flex-end; min-height:2.75rem!important; font-size:.9rem; padding:.45rem .8rem; }
+.journey-confirm { padding:1rem; border:2px solid var(--primary); border-radius:1rem; background:var(--soft);
+  margin:.7rem 0 1rem; }
+.journey-confirm p { font-weight:700; margin-bottom:.75rem; }
+.journey-confirm .btn-row { margin:0; }
+body.journey-mode .consecuencia { border-width:2px; box-shadow:none; }
+body.journey-mode .dilema>.detalle { margin-top:1.2rem; }
+body.journey-mode .journey-argumento { border:2px solid var(--border); border-radius:1rem;
+  margin:1rem 0; background:var(--surface); padding:.15rem 1rem; }
+body.journey-mode .journey-argumento summary { cursor:pointer; min-height:3rem; display:flex; align-items:center; font-weight:700; }
+body.journey-mode .journey-argumento .fundamento { padding:.6rem 0 .8rem; margin:0; }
+.journey-choice-nav { margin:1rem 0; }
+/* Acuerdos: una sugerencia visible; se revelan los acuerdos que el grupo va sumando */
+body.journey-mode .view[data-ruta-vista="construimos"]>.nota-aviso { display:none!important; }
+body.journey-mode .grid-2 { max-width:44rem; margin:1.2rem auto; display:grid; grid-template-columns:1fr!important; gap:1rem; }
+body.journey-mode .panel { box-shadow:none; border-width:2px; padding:1.1rem; }
+body.journey-mode .ideas { display:block; padding:0; margin:.9rem 0; }
+body.journey-mode .ideas li { padding:1rem; display:flex; border-radius:1rem; gap:1rem; }
+body.journey-mode .ideas .idea-txt { font-size:1.13rem; font-weight:700; }
+body.journey-mode #btn-cargar-ideas { display:none!important; }
+.journey-ideas-controls { display:flex; align-items:center; justify-content:space-between; gap:.6rem; flex-wrap:wrap; }
+.journey-ideas-controls .btn { min-height:2.8rem; padding:.5rem .8rem; }
+.journey-ideas-number { font-weight:700; color:var(--muted); }
+body.journey-mode .acuerdos { max-height:none; }
+body.journey-mode .acuerdo { border-radius:.85rem; }
+body.journey-mode .box-privacidad { max-width:44rem; margin:1rem auto; }
+body.journey-mode .view[data-ruta-vista="construimos"]>.box:not(.box-privacidad) { max-width:44rem; margin:1rem auto; }
+/* Responsive, zoom y movimiento */
+@media(max-width:40rem) {
+  body.journey-mode .header-row { gap:.45rem; }
+  body.journey-mode .brand-name { font-size:.92rem; }
+  body.journey-mode .header-tools { gap:.2rem; }
+  body.journey-mode #btn-a11y { padding:.45rem .55rem; font-size:.9rem; }
+  body.journey-mode main { padding:.75rem .65rem 1.5rem; }
+  .journey-bar { border-radius:.85rem; }
+  .journey-read .btn { font-size:.83rem; }
+  .journey-controls .btn { flex:1 1 100%; }
 }
-.card-inv { overflow: hidden; transition: border-color .15s, box-shadow .15s; }
-.card-inv:hover { border-color: var(--primary); box-shadow: var(--experiencia-sombra); }
-.card-inv-emoji { font-size: 1.8rem; margin-right: .45rem; }
-.card-inv-t { display: inline-flex; align-items: center; flex-wrap: wrap; gap: .2rem; }
-.glos summary { gap: .5rem; font-size: 1.12rem; }
-.glos-emoji { font-size: 1.35rem; margin-right: .3rem; }
-.glos-escuchar { margin: .25rem 0 .8rem; }
-.dilema { border-color: var(--primary); box-shadow: var(--experiencia-sombra); }
-.dilema > .eyebrow { display: inline-block; background: var(--soft); border: 2px solid var(--border); border-radius: 999px; padding: .25rem .7rem; }
-.dilema .situacion { display: flex; gap: 1rem; align-items: center; line-height: 1.5; }
-.dilema .situacion::before { content: "📲"; font-size: 2.3rem; flex: none; }
-.dilema:nth-child(2) .situacion::before { content: "💬"; }
-.opciones { gap: .7rem; align-items: stretch; }
-.opciones li { background: var(--surface); border-radius: 1rem; display: flex; flex-direction: column; gap: .5rem; }
-.opcion { min-height: 9rem; gap: .45rem; border-width: 3px; box-shadow: var(--shadow); }
-.opcion-emoji { font-size: 2.15rem; line-height: 1.1; }
-.opcion-texto { flex: 1; }
-.opcion[data-pendiente="true"] { border-color: var(--secondary); border-width: 5px; padding: calc(1rem - 2px); background: var(--soft); }
-.opcion[data-pendiente="true"]::after { content: "Seleccionada, falta confirmar"; display: block; font-size: .85rem; color: var(--primary-dark); font-weight: 700; }
-.opcion-escuchar { align-self: stretch; min-height: 2.8rem; font-size: .9rem; }
-.confirmacion { border: 3px solid var(--secondary); background: var(--soft); border-radius: 1rem; padding: 1rem; margin-bottom: 1rem; }
-.confirmacion p { margin: 0 0 .75rem; font-size: 1.1rem; font-weight: 700; }
-.confirmacion .btn-row { margin: 0; }
-.consecuencia { box-shadow: var(--experiencia-sombra); }
-.consecuencia h3::before { content: "💡"; margin-right: .5rem; }
-.consecuencia .para-pensar p::before { content: "💭 "; }
-.lectura-extra { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin: .65rem 0 1.2rem; padding: .65rem; background: var(--surface); border: 2px solid var(--border); border-radius: 1rem; }
-.lectura-extra .btn { min-height: 2.8rem; }
-.lectura-extra .lectura-estado { flex: 1 1 100%; margin: 0; color: var(--muted); font-size: .9rem; }
-.lectura-mini { margin: .25rem 0 .8rem; }
-.ideas li { gap: .5rem; }
-.idea-emoticon { font-size: 1.45rem; margin-right: .2rem; }
-.acuerdo label::before { content: "🤝 "; }
-html[data-contrast="alto"] .hero,
-html[data-contrast="alto"] .historia-preview figure,
-html[data-contrast="alto"] .caso-resumen,
-html[data-contrast="alto"] .card-inv,
-html[data-contrast="alto"] .dilema,
-html[data-contrast="alto"] .confirmacion,
-html[data-contrast="alto"] .post { background: var(--surface); color: var(--text); box-shadow: none; }
-html[data-contrast="alto"] .post-contexto,
-html[data-contrast="alto"] .opcion[data-pendiente="true"]::after { color: var(--text); }
-html[data-contrast="alto"] .opcion[data-pendiente="true"] { border-color: var(--secondary); }
-html[data-contrast="alto"] .historia-preview figcaption { color: var(--text); }
-@media (max-width: 45em) {
-  .historia-preview figure { transform: none; }
-  .historia-avisos p { font-size: .9rem; }
-  .caso-resumen ul { display: grid; }
-  .opciones { grid-template-columns: 1fr; }
-  .opcion { min-height: 6.5rem; }
-  .dilema .situacion::before { font-size: 1.8rem; }
-}
-html[data-motion="reducido"] .ruta-card,
-html[data-motion="reducido"] .card-inv { transition: none; }
-html[data-motion="reducido"] .ruta-card:hover { transform: none; }
-@media (prefers-reduced-motion: reduce) {
-  .ruta-card, .card-inv { transition: none; }
-  .ruta-card:hover { transform: none; }
-}
-@media print {
-  .lectura-extra, .opcion-escuchar, .confirmacion, .escuchar-mensaje { display: none !important; }
-}
+html[data-contrast="alto"] .journey-hero-photo p,
+html[data-contrast="alto"] .journey-finish { box-shadow:none; }
+html[data-motion="reducido"] .journey-hero-photo,
+html[data-motion="reducido"] .journey-step { animation:none; }
+@media(prefers-reduced-motion:reduce) { .journey-hero-photo,.journey-step { animation:none; } }
+@media print { .journey-bar,.journey-controls,.journey-step { display:none!important; } }
+
+body.journey-mode .journey-step h2 { scroll-margin-top:7.5rem; }
+body.journey-mode .dilema h2 { scroll-margin-top:7.5rem; }
