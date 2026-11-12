@@ -336,7 +336,7 @@
     return '<details class="comunicacion-opcional"><summary>💬 Comunicar una idea sin escribir (opcional)</summary>' +
       '<p class="small">Cualquier estudiante puede elegir una frase y mostrarla al grupo. Se puede seguir usando el comunicador habitual.</p>' +
       '<div class="frases-comunicacion" role="group" aria-label="Frases para participar">' +
-      frases.map(function(f) { return '<button type="button" class="btn btn-secondary" data-act="comunicar" data-frase="' + esc(f) + '">' + esc(f) + '</button>'; }).join("") +
+      frases.map(function(f) { return '<button type="button" class="btn btn-secondary" data-act="comunicar" aria-pressed="false" data-frase="' + esc(f) + '">' + esc(f) + '</button>'; }).join("") +
       '</div><div class="frase-elegida" hidden>' +
       '<p class="frase-elegida-texto" role="status" aria-live="polite"></p>' +
       '<button type="button" class="btn btn-secondary" data-act="oir-frase">' + icon("speaker") + 'Escuchar la frase</button>' +
@@ -694,8 +694,14 @@
         $$(".borrar-estado").forEach(function (p) { p.textContent = ""; });
         conf.hidden = true; $(".borrar-estado", box).textContent = "Listo: se borraron los datos guardados en este dispositivo.";
         announce("Se borraron los datos guardados en este dispositivo.");
-        if (nav.scene === N_ESCENAS - 1 && nav.beat === 1) { var f = $("#final-texto"); if (f) f.value = ""; $$(".final-lista, .final-lista + .btn-row", $("#escenario")).length; }
-        pedir.focus();
+        if (nav.scene === N_ESCENAS - 1 && nav.beat === 1) {
+          var desdeEscena = !!box.closest("#escenario");
+          renderStage(false, false);
+          if (desdeEscena) {
+            var nuevoBoton = $('[data-b="pedir"]', $("#escenario"));
+            if (nuevoBoton) nuevoBoton.focus();
+          } else pedir.focus();
+        } else pedir.focus();
       }
     });
   }
@@ -850,12 +856,12 @@
       var output = $(".frase-elegida", panel);
       $(".frase-elegida-texto", panel).textContent = chosen;
       output.hidden = false;
-      $("[data-act='comunicar']", panel).forEach(function (b) { b.setAttribute("aria-pressed", b === t ? "true" : "false"); });
+      $$("[data-act='comunicar']", panel).forEach(function (b) { b.setAttribute("aria-pressed", b === t ? "true" : "false"); });
       announce("Frase seleccionada: " + chosen + ". Podés mostrarla al grupo o escucharla.");
     }
     else if (a === "oir-frase") {
       var frase = $(".frase-elegida-texto", t.closest(".comunicacion-opcional"));
-      if (frase) voz.speak(frase.textContent);
+      if (frase) { if (voz.supported) voz.speak(frase.textContent); else announce("Este dispositivo no ofrece lectura en voz alta. La frase sigue visible."); }
     }
     else if (a === "abrir-notif") { setPos(nav.scene + 1, 0, { forward: true, animate: true }); }
     else if (a === "ampliar") openFoto(t);
