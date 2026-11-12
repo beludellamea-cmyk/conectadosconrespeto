@@ -1,19 +1,17 @@
 <!DOCTYPE html>
-<html lang="es-AR" data-contrast="normal" data-motion="auto">
+<html lang="es-AR" data-tema="cine" data-motion="auto">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Conectados con respeto · Una foto, cientos de miradas</title>
-  <meta name="description" content="Simulación educativa ficticia de Formación Ética y Ciudadana sobre convivencia digital, consentimiento y respeto al compartir imágenes.">
-  <meta name="theme-color" content="#4F46E5">
+  <meta name="description" content="Historia interactiva ficticia de Formación Ética y Ciudadana sobre convivencia digital, consentimiento y respeto al compartir imágenes.">
+  <meta name="theme-color" content="#0B1026">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/experiencia-visual.css">
 </head>
 <body>
-  <a class="skip-link" href="#contenido" id="skip-link">Saltar al contenido</a>
+  <a class="skip-link" href="#escena" id="skip-link">Saltar a la escena</a>
 
-  <!-- Íconos SVG en línea (todos decorativos: los controles tienen texto) -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
     <defs>
       <symbol id="i-logo" viewBox="0 0 48 48"><path d="M6 10a5 5 0 0 1 5-5h20a5 5 0 0 1 5 5v13a5 5 0 0 1-5 5H19l-8 7v-7a5 5 0 0 1-5-5z" fill="currentColor"/><path d="M26 25h11a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5v4l-6-4h-5a5 5 0 0 1-5-5v-8a5 5 0 0 1 5-5z" fill="#A855F7" stroke="#fff" stroke-width="2"/></symbol>
@@ -50,490 +48,176 @@
     </defs>
   </svg>
 
-  <!-- Región para avisos breves a lectores de pantalla (se usa con moderación) -->
+  <!-- Avisos para lectores de pantalla: uno general y otro para la historia -->
   <div id="anuncios" class="sr-only" role="status" aria-live="polite"></div>
+  <div id="relato" class="sr-only" role="status" aria-live="polite"></div>
 
   <noscript>
-    <div class="noscript">
-      <p><strong>Este recurso necesita JavaScript.</strong> Activalo en tu navegador para recorrer el caso, tomar decisiones y armar el decálogo. Mientras tanto, el contenido del caso está en el archivo <code>datos/caso_educativo.json</code>.</p>
-    </div>
+    <div class="noscript"><p><strong>Esta historia interactiva necesita JavaScript.</strong> Activalo en tu navegador. El contenido del caso también está en <code>datos/caso_educativo.json</code>.</p></div>
   </noscript>
 
-  <header class="site-header" id="encabezado">
-    <div class="header-row">
-      <a class="brand" href="#/inicio" aria-label="Conectados con respeto: ir al inicio">
-        <svg class="brand-logo" width="44" height="44" aria-hidden="true" focusable="false"><use href="#i-logo"/></svg>
-        <span class="brand-text">
+  <div class="app" id="app">
+    <header class="topbar" id="topbar">
+      <div class="topbar-row">
+        <button type="button" class="brand" id="btn-marca" aria-label="CONECTADOS CON RESPETO: volver a la primera escena">
+          <svg class="brand-logo" width="34" height="34" aria-hidden="true" focusable="false"><use href="#i-logo"/></svg>
           <span class="brand-name">CONECTADOS CON RESPETO</span>
-          <span class="brand-sub">Convivencia digital y ciudadanía en la escuela</span>
-        </span>
-      </a>
-      <p class="badge badge-sim" id="badge-sim"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-info"/></svg>Simulación educativa ficticia</p>
-      <div class="header-tools">
-        <button type="button" class="btn btn-tool hide-small" id="btn-a-menos"><span aria-hidden="true">A−</span><span class="sr-only">Texto más chico</span></button>
-        <button type="button" class="btn btn-tool hide-small" id="btn-a-mas"><span aria-hidden="true">A+</span><span class="sr-only">Texto más grande</span></button>
-        <button type="button" class="btn btn-tool" id="btn-a11y" aria-expanded="false" aria-controls="panel-a11y">
-          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-access"/></svg>Accesibilidad
         </button>
-        <button type="button" class="btn btn-tool only-small" id="btn-menu" aria-expanded="false" aria-controls="nav-principal">
-          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-menu"/></svg>Menú
-        </button>
+        <p class="badge" id="badge-sim">Simulación educativa ficticia</p>
+        <div class="tools" role="group" aria-label="Herramientas">
+          <button type="button" class="btn btn-tool" id="btn-etapas" aria-expanded="false" aria-controls="panel-etapas"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-menu"/></svg>Etapas</button>
+          <button type="button" class="btn btn-tool" id="btn-lsa" aria-haspopup="dialog"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-hand"/></svg>LSA</button>
+          <button type="button" class="btn btn-tool" id="btn-a11y" aria-haspopup="dialog"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-access"/></svg>Accesibilidad</button>
+          <button type="button" class="btn btn-tool" id="btn-ayuda" aria-haspopup="dialog"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-help"/></svg>Ayuda</button>
+        </div>
       </div>
+      <div class="progreso">
+        <p class="prog-texto" id="prog-texto"></p>
+        <div class="prog-barra" aria-hidden="true"><span id="prog-relleno"></span></div>
+      </div>
+      <nav class="panel-etapas" id="panel-etapas" aria-label="Etapas de la historia" hidden>
+        <p class="small">Cambiá de etapa cuando el grupo lo necesite. Podés volver a cualquiera.</p>
+        <ol id="lista-etapas"></ol>
+      </nav>
+    </header>
+
+    <div class="scan-bar" id="barra-barrido" hidden>
+      <p id="scan-texto" class="scan-texto">Barrido activo.</p>
+      <button type="button" class="btn btn-secondary" id="scan-pausa">Pausar barrido</button>
+      <button type="button" class="btn btn-secondary" id="scan-stop">Detener barrido</button>
     </div>
-  </header>
 
-  <!-- Panel de accesibilidad (se despliega en el flujo de la página, no flota sobre el contenido) -->
-  <section class="a11y-panel" id="panel-a11y" aria-labelledby="t-a11y" hidden>
-    <div class="a11y-inner">
-      <div class="a11y-head">
-        <h2 id="t-a11y">Ajustes de accesibilidad</h2>
-        <button type="button" class="btn btn-secondary" id="btn-a11y-cerrar">
-          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-close"/></svg>Cerrar ajustes
-        </button>
-      </div>
-      <p class="muted">Estos ajustes sirven para todo el grupo y se guardan solo en este dispositivo. La vista normal también se puede usar con teclado.</p>
-
-      <div class="a11y-grid">
-        <div class="a11y-item">
-          <h3>Tamaño del texto</h3>
-          <div class="btn-row">
-            <button type="button" class="btn btn-secondary" id="p-a-menos"><span aria-hidden="true">A−</span><span class="sr-only">Texto más chico</span></button>
-            <button type="button" class="btn btn-secondary" id="p-a-mas"><span aria-hidden="true">A+</span><span class="sr-only">Texto más grande</span></button>
-            <button type="button" class="btn btn-secondary" id="p-a-reset">Tamaño normal</button>
-          </div>
-          <p class="small" id="tam-valor">Tamaño actual: 100 %</p>
-        </div>
-
-        <div class="a11y-item">
-          <h3 id="h-contraste">Alto contraste</h3>
-          <p class="small">Fondo negro, letras blancas y botones amarillos.</p>
-          <button type="button" class="switch" role="switch" aria-checked="false" id="sw-contraste" aria-labelledby="h-contraste">
-            <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
-            <span class="switch-state" aria-hidden="true">No</span>
-          </button>
-        </div>
-
-        <div class="a11y-item">
-          <h3 id="h-movimiento">Reducir movimiento</h3>
-          <p class="small">Quita las animaciones y los desplazamientos suaves.</p>
-          <button type="button" class="switch" role="switch" aria-checked="false" id="sw-movimiento" aria-labelledby="h-movimiento">
-            <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
-            <span class="switch-state" aria-hidden="true">No</span>
-          </button>
-        </div>
-
-        <div class="a11y-item">
-          <h3 id="h-espaciado">Más espacio entre letras y líneas</h3>
-          <p class="small">Separa más el texto para leerlo con menos esfuerzo.</p>
-          <button type="button" class="switch" role="switch" aria-checked="false" id="sw-espaciado" aria-labelledby="h-espaciado">
-            <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
-            <span class="switch-state" aria-hidden="true">No</span>
-          </button>
-        </div>
-
-        <div class="a11y-item a11y-wide">
-          <h3 id="h-barrido">Barrido automático (opcional, experimental)</h3>
-          <p class="small">Para quien usa un pulsador o un sistema que emula teclas: el foco avanza solo, de a un elemento, y se acciona con <kbd>Enter</kbd> o <kbd>Espacio</kbd>. Se puede pausar y detener, y nunca es la única forma de usar el sitio (el teclado funciona igual). <strong>Todavía no se probó con un pulsador real.</strong> En los cuadros de texto no se detiene: escribir siempre es opcional.</p>
-          <div class="btn-row">
-            <button type="button" class="switch" role="switch" aria-checked="false" id="sw-barrido" aria-labelledby="h-barrido">
-              <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
-              <span class="switch-state" aria-hidden="true">No</span>
-            </button>
-            <label for="sel-barrido" class="inline-label">Ritmo del barrido:</label>
-            <select id="sel-barrido" class="select">
-              <option value="2000">Rápido (2 segundos)</option>
-              <option value="3000" selected>Normal (3 segundos)</option>
-              <option value="5000">Lento (5 segundos)</option>
-              <option value="8000">Muy lento (8 segundos)</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="a11y-item a11y-wide">
-          <h3>Cómo usar el teclado</h3>
-          <ul class="small keys">
-            <li><kbd>Tab</kbd> y <kbd>Shift</kbd> + <kbd>Tab</kbd>: ir al elemento siguiente o anterior.</li>
-            <li><kbd>Enter</kbd> o <kbd>Espacio</kbd>: activar el botón o el enlace que tiene el foco.</li>
-            <li><kbd>Esc</kbd>: cerrar este panel, el menú o la foto ampliada.</li>
-          </ul>
-        </div>
-      </div>
-      <p class="small"><a href="#/ayuda">Ver la ayuda completa, el estado de los apoyos y la privacidad</a></p>
-    </div>
-  </section>
-
-  <!-- Barra visible mientras el barrido está activo -->
-  <div class="scan-bar" id="barra-barrido" hidden>
-    <p id="scan-texto" class="scan-texto">Barrido activo.</p>
-    <button type="button" class="btn btn-secondary" id="scan-pausa">Pausar barrido</button>
-    <button type="button" class="btn btn-secondary" id="scan-stop">Detener barrido</button>
-  </div>
-
-  <div class="layout" id="layout">
-    <nav class="side-nav" id="nav-principal" aria-label="Secciones del recurso">
-      <p class="nav-title" aria-hidden="true">Recorrido</p>
-      <ul>
-        <li><a href="#/inicio" data-ruta="inicio"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-home"/></svg><span>Inicio</span></a></li>
-        <li><a href="#/caso" data-ruta="caso"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-case"/></svg><span>El caso</span></a></li>
-        <li><a href="#/investigamos" data-ruta="investigamos"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-search"/></svg><span>Investigamos</span></a></li>
-        <li><a href="#/decidimos" data-ruta="decidimos"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-scale"/></svg><span>Decidimos</span></a></li>
-        <li><a href="#/construimos" data-ruta="construimos"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-users"/></svg><span>Construimos</span></a></li>
-      </ul>
-      <p class="nav-title nav-title-2" aria-hidden="true">Más</p>
-      <ul>
-        <li><a href="#/ayuda" data-ruta="ayuda"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-help"/></svg><span>Ayuda y privacidad</span></a></li>
-      </ul>
-      <p class="nav-note small">Podés ir a cualquier sección en cualquier momento. No hay puntajes ni bloqueos.</p>
-    </nav>
-
-    <main id="contenido" tabindex="-1">
-
-      <!-- ================= 0. INICIO ================= -->
-      <section class="view" data-ruta-vista="inicio" aria-labelledby="t-inicio" hidden>
-        <div class="hero">
-          <div class="hero-text">
-            <p class="eyebrow">Formación Ética y Ciudadana · 3.º año</p>
-            <h1 id="t-inicio" tabindex="-1">CONECTADOS CON RESPETO</h1>
-            <p class="subtitle">Una foto, cientos de miradas</p>
-            <p class="lead">Una foto se compartió sin permiso y empezó a circular. Investigá qué pasó, analizá las decisiones y ayudá a construir acuerdos para una convivencia digital más respetuosa.</p>
-            <p class="badge badge-sim"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-info"/></svg>Simulación educativa ficticia</p>
-            <div class="actions">
-              <a class="btn btn-primary btn-lg" href="#/caso">Comenzar<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-right"/></svg></a>
-              <a class="btn btn-secondary btn-lg" href="#/ayuda">Cómo se juega / cómo se trabaja</a>
-              <button type="button" class="btn btn-secondary btn-lg" data-abrir-a11y><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-access"/></svg>Accesibilidad</button>
-            </div>
-          </div>
-          <div class="hero-art" aria-hidden="true">
-            <svg viewBox="0 0 320 300" width="320" height="300" focusable="false">
-              <circle class="float f1" cx="52" cy="62" r="26" fill="#C7D2FE"/>
-              <circle class="float f2" cx="278" cy="46" r="16" fill="#DDD6FE"/>
-              <circle class="float f3" cx="290" cy="238" r="30" fill="#BFDBFE"/>
-              <rect x="96" y="22" width="132" height="252" rx="22" fill="#fff" stroke="#4F46E5" stroke-width="5"/>
-              <rect x="108" y="40" width="108" height="76" rx="10" fill="#E0E7FF"/>
-              <path d="M108 104l30-30 22 22 16-14 40 38v6H108z" fill="#A5B4FC"/>
-              <circle cx="190" cy="62" r="9" fill="#fff"/>
-              <rect x="108" y="128" width="70" height="9" rx="4.5" fill="#CBD5E1"/>
-              <rect x="108" y="150" width="108" height="26" rx="13" fill="#EEF2FF"/>
-              <rect x="120" y="159" width="62" height="8" rx="4" fill="#818CF8"/>
-              <rect x="108" y="184" width="108" height="26" rx="13" fill="#F3E8FF"/>
-              <rect x="120" y="193" width="78" height="8" rx="4" fill="#A855F7"/>
-              <rect x="108" y="218" width="108" height="26" rx="13" fill="#EEF2FF"/>
-              <rect x="120" y="227" width="50" height="8" rx="4" fill="#818CF8"/>
-              <path class="float f2" d="M236 112a12 12 0 0 1 12-12h40a12 12 0 0 1 12 12v22a12 12 0 0 1-12 12h-24l-14 12v-12a12 12 0 0 1-14-12z" fill="#7C3AED"/>
-              <circle cx="256" cy="123" r="3.5" fill="#fff"/><circle cx="268" cy="123" r="3.5" fill="#fff"/><circle cx="280" cy="123" r="3.5" fill="#fff"/>
-              <path class="float f1" d="M40 170a12 12 0 0 1 12-12h36a12 12 0 0 1 12 12v18a12 12 0 0 1-12 12H70l-12 10v-10a12 12 0 0 1-18-12z" fill="#2563EB"/>
-              <path d="M58 176l7 7 13-13" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        </div>
-
-        <h2 class="h-sec">Elegí por dónde seguir</h2>
-        <p class="muted">Son cuatro momentos. Podés recorrerlos en orden o saltar a cualquiera, y volver cuando quieras.</p>
-        <ol class="ruta">
-          <li><a class="ruta-card" href="#/caso"><span class="ruta-num" aria-hidden="true">1</span><span class="ruta-body"><span class="ruta-t">El caso</span><span class="ruta-d">Llega una notificación. Mirá la publicación y los comentarios.</span></span></a></li>
-          <li><a class="ruta-card" href="#/investigamos"><span class="ruta-num" aria-hidden="true">2</span><span class="ruta-body"><span class="ruta-t">Investigamos</span><span class="ruta-d">Ordená la evidencia y conocé conceptos clave.</span></span></a></li>
-          <li><a class="ruta-card" href="#/decidimos"><span class="ruta-num" aria-hidden="true">3</span><span class="ruta-body"><span class="ruta-t">Decidimos</span><span class="ruta-d">Elegí qué hacer y explorá las consecuencias posibles.</span></span></a></li>
-          <li><a class="ruta-card" href="#/construimos"><span class="ruta-num" aria-hidden="true">4</span><span class="ruta-body"><span class="ruta-t">Construimos</span><span class="ruta-d">Armen entre todos su decálogo de convivencia digital.</span></span></a></li>
-        </ol>
-
-        <div class="nota">
-          <p><strong>No es un examen ni una competencia.</strong> No hay puntajes, ranking ni respuestas «correctas». Se trabaja en equipo, conversando, con la guía de la docente. Podés participar hablando, en Lengua de Señas Argentina, con un comunicador o con el teclado: escribir es siempre opcional.</p>
-        </div>
-        <div data-lsa="inicio"></div>
-      </section>
-
-      <!-- ================= 1. EL CASO ================= -->
-      <section class="view" data-ruta-vista="caso" aria-labelledby="t-caso" hidden>
-        <p class="eyebrow">Momento 1 de 4</p>
-        <h1 id="t-caso" tabindex="-1">El caso</h1>
-        <p class="lead">Empieza la clase y suena una notificación en el celular.</p>
-
-        <div class="enbreve">
-          <p class="enbreve-t">En esta pantalla</p>
-          <ul>
-            <li>Abrís la notificación.</li>
-            <li>Mirás la publicación y leés los comentarios.</li>
-            <li>Conversan qué está pasando y qué falta saber.</li>
-          </ul>
-        </div>
-
-        <div class="notif-wrap">
-          <button type="button" class="notif" id="btn-notif" aria-expanded="false" aria-controls="feed">
-            <span class="notif-ico" aria-hidden="true"><svg class="ico ico-lg" focusable="false"><use href="#i-bell"/></svg></span>
-            <span class="notif-body">
-              <span class="notif-t" id="notif-texto">Nueva publicación en el grupo 3.º B</span>
-              <span class="notif-d" id="notif-ayuda">Abrir la notificación</span>
-            </span>
-            <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg>
-          </button>
-        </div>
-
-        <div id="feed" hidden>
-          <div class="toolbar" id="barra-voz" role="group" aria-label="Escuchar la narración del caso (opcional)" hidden>
-            <button type="button" class="btn btn-secondary" id="voz-play"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-speaker"/></svg>Escuchar narración</button>
-            <button type="button" class="btn btn-secondary" id="voz-pausa" disabled><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-pause"/></svg>Pausar</button>
-            <button type="button" class="btn btn-secondary" id="voz-stop" disabled><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-stop"/></svg>Detener</button>
-            <label for="voz-vel" class="inline-label">Velocidad:</label>
-            <select id="voz-vel" class="select">
-              <option value="0.8">Lenta</option>
-              <option value="1" selected>Normal</option>
-              <option value="1.2">Rápida</option>
-            </select>
-            <p class="small toolbar-msg" id="voz-msg">La narración es opcional y nunca empieza sola. Todo el contenido está escrito.</p>
-          </div>
-
-          <h2 class="h-sec" id="t-feed" tabindex="-1">Lo que apareció en el grupo</h2>
-          <p class="small muted">Red social inventada para esta actividad. No es ninguna aplicación real.</p>
-          <div id="feed-contenido"></div>
-
-          <div class="caso-preguntas">
-            <h2 class="h-sec">¿Qué está pasando?</h2>
-            <p>Conversen en el equipo. Pueden hablar, usar LSA o un comunicador, y escribir solo si quieren. No escribas nombres reales ni datos personales.</p>
-            <div id="preguntas-caso"></div>
-          </div>
-          <div class="nav-pie">
-            <a class="btn btn-secondary" href="#/inicio"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-left"/></svg>Volver al inicio</a>
-            <a class="btn btn-primary" href="#/investigamos">Seguir investigando<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-right"/></svg></a>
-          </div>
-        </div>
-        <div data-lsa="caso"></div>
-      </section>
-
-      <!-- ================= 2. INVESTIGAMOS ================= -->
-      <section class="view" data-ruta-vista="investigamos" aria-labelledby="t-inv" hidden>
-        <p class="eyebrow">Momento 2 de 4</p>
-        <h1 id="t-inv" tabindex="-1">Investigamos</h1>
-        <p class="lead">Acá están los hechos, sin pistas escondidas. Abrí cada tarjeta y conversen qué sabemos y qué no.</p>
-
-        <div class="enbreve">
-          <p class="enbreve-t">En esta pantalla</p>
-          <ul>
-            <li>Consultás cuatro tarjetas con la evidencia.</li>
-            <li>Leés un mini glosario con palabras clave.</li>
-            <li>Piensan si hay señales de hostigamiento, sin etiquetar de apuro.</li>
-          </ul>
-        </div>
-
-        <div class="btn-row">
-          <button type="button" class="btn btn-secondary" id="inv-abrir-todas">Abrir todas las tarjetas</button>
-          <button type="button" class="btn btn-secondary" id="inv-cerrar-todas">Cerrar todas las tarjetas</button>
-        </div>
-        <div class="cards-inv" id="tarjetas-inv"></div>
-
-        <section class="box" aria-labelledby="t-acoso">
-          <h2 id="t-acoso">¿Es ciberacoso? Una pregunta para analizar, no para etiquetar</h2>
-          <p>Compartir una foto de alguien sin permiso <strong>vulnera su consentimiento y su privacidad</strong>. Pero eso, por sí solo, <strong>no significa automáticamente ciberacoso</strong>. Para analizar si hay hostigamiento conviene mirar:</p>
-          <ul class="check-list">
-            <li><strong>Reiteración:</strong> ¿pasó una sola vez o se repite en el tiempo?</li>
-            <li><strong>Intención:</strong> ¿se busca molestar, burlarse o dañar?</li>
-            <li><strong>Contexto:</strong> ¿qué relación hay entre las personas? ¿Quiénes miran?</li>
-            <li><strong>Efectos:</strong> ¿cómo puede afectar a la persona y qué pidió ella?</li>
-          </ul>
-          <p>En este caso aparecen una circulación que se amplía (la foto llegó a otros grupos), un pedido que se repite (Sofi pide dos veces que pare) y un comentario despectivo. Eso <strong>habilita analizar un posible ciberacoso</strong>, pero todavía faltan datos para decidirlo. Por eso preguntamos antes de concluir.</p>
-        </section>
-
-        <section class="box" aria-labelledby="t-glosario">
-          <h2 id="t-glosario">Mini glosario</h2>
-          <p class="muted">Tocá una palabra para ver qué significa.</p>
-          <div id="glosario" class="glosario"></div>
-        </section>
-
-        <section class="box" aria-labelledby="t-reflex">
-          <h2 id="t-reflex">Para pensar entre todos</h2>
-          <ol class="preguntas" id="preguntas-inv"></ol>
-          <details class="detalle">
-            <summary>Más preguntas para el debate sin pantallas</summary>
-            <ol class="preguntas" id="preguntas-debate"></ol>
-          </details>
-        </section>
-
-        <div class="nav-pie">
-          <a class="btn btn-secondary" href="#/caso"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-left"/></svg>Volver al caso</a>
-          <a class="btn btn-primary" href="#/decidimos">Ir a las decisiones<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-right"/></svg></a>
-        </div>
-        <div data-lsa="investigamos"></div>
-      </section>
-
-      <!-- ================= 3. DECIDIMOS ================= -->
-      <section class="view" data-ruta-vista="decidimos" aria-labelledby="t-dec" hidden>
-        <p class="eyebrow">Momento 3 de 4</p>
-        <h1 id="t-dec" tabindex="-1">Decidimos</h1>
-        <p class="lead">Una misma situación para todos los equipos. Elegí una opción y mirá una consecuencia posible. No hay respuestas correctas ni puntajes: lo importante es pensar y conversar.</p>
-
-        <div class="enbreve">
-          <p class="enbreve-t">En esta pantalla</p>
-          <ul>
-            <li>Elegís una opción entre tres.</li>
-            <li>Leés una consecuencia posible y una pregunta para pensar.</li>
-            <li>Podés explorar las otras opciones y escribir tu idea (es opcional).</li>
-          </ul>
-        </div>
-
-        <div id="dilemas"></div>
-
-        <div class="nav-pie">
-          <a class="btn btn-secondary" href="#/investigamos"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-left"/></svg>Volver a investigar</a>
-          <a class="btn btn-primary" href="#/construimos">Ir a construir acuerdos<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-right"/></svg></a>
-        </div>
-        <div data-lsa="decidimos"></div>
-      </section>
-
-      <!-- ================= 4. CONSTRUIMOS ================= -->
-      <section class="view" data-ruta-vista="construimos" aria-labelledby="t-con" hidden>
-        <p class="eyebrow">Momento 4 de 4</p>
-        <h1 id="t-con" tabindex="-1">Construimos</h1>
-        <p class="lead">Es hora de armar acuerdos para convivir mejor en lo digital. Las ideas de la izquierda son <strong>propuestas para revisar</strong>: ustedes eligen, cambian, agregan, borran y ordenan hasta llegar a 10 acuerdos.</p>
-
-        <div class="nota nota-aviso">
-          <p><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-info"/></svg><strong>Importante:</strong> esto <strong>no es colaboración en tiempo real</strong> y no usa ninguna cuenta. Lo que escribas se guarda solo en este dispositivo. Los equipos trabajan presentes en el aula, con un dispositivo compartido o juntando propuestas en la puesta en común. No escribas nombres reales ni datos personales.</p>
-        </div>
-
-        <details class="detalle" id="repaso-decisiones">
-          <summary>Repasar lo que exploramos en las decisiones</summary>
-          <div id="repaso-contenido"></div>
-        </details>
-
-        <div class="grid-2">
-          <section class="panel" aria-labelledby="t-ideas">
-            <h2 id="t-ideas">Ideas para arrancar</h2>
-            <p class="muted">Son sugerencias, no acuerdos ya tomados. Agregá las que les sirvan y después las pueden cambiar.</p>
-            <ul class="ideas" id="lista-ideas"></ul>
-            <button type="button" class="btn btn-secondary" id="btn-cargar-ideas">Empezar con estas 10 ideas para revisarlas</button>
-          </section>
-
-          <section class="panel panel-main" aria-labelledby="t-decalogo">
-            <h2 id="t-decalogo">Nuestro decálogo de convivencia digital</h2>
-            <p class="contador" id="contador-acuerdos"></p>
-            <p class="small" id="aviso-deshacer" hidden></p>
-            <ol class="acuerdos" id="lista-acuerdos"></ol>
-            <p class="vacio" id="vacio-acuerdos" hidden>Todavía no hay acuerdos. Agregá ideas desde la columna de sugerencias o escribí una propia abajo.</p>
-
-            <form class="agregar" id="form-agregar" novalidate>
-              <label for="nuevo-acuerdo">Sumá un acuerdo propio</label>
-              <div class="agregar-row">
-                <input type="text" id="nuevo-acuerdo" class="input" maxlength="140" autocomplete="off" placeholder="Por ejemplo: Preguntar antes de etiquetar a alguien.">
-                <button type="submit" class="btn btn-primary" id="btn-agregar"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg>Agregar acuerdo</button>
-              </div>
-              <p class="small" id="agregar-msg" role="status"></p>
-            </form>
-
-            <div class="btn-row exportar">
-              <button type="button" class="btn btn-primary" id="btn-imprimir"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-print"/></svg>Imprimir o guardar como PDF</button>
-              <button type="button" class="btn btn-secondary" id="btn-txt"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-download"/></svg>Descargar como texto</button>
-            </div>
-            <p class="small muted">«Imprimir o guardar como PDF» abre el diálogo de tu navegador: elegí «Guardar como PDF» como destino si querés un archivo.</p>
-          </section>
-        </div>
-
-        <section class="box" aria-labelledby="t-final">
-          <h2 id="t-final">Reflexión final</h2>
-          <p><strong id="pregunta-final"></strong></p>
-          <label for="final-texto" class="sr-only">Tu reflexión (opcional)</label>
-          <textarea id="final-texto" class="textarea" rows="4" placeholder="Podés conversarlo en voz alta, en LSA o con tu comunicador. Si querés, anotá una idea." maxlength="1000"></textarea>
-          <p class="small muted" id="final-estado">Opcional. Se guarda solo en este dispositivo.</p>
-        </section>
-
-        <section class="box box-privacidad" aria-labelledby="t-priv">
-          <h2 id="t-priv">Tus datos en este dispositivo</h2>
-          <div data-borrar></div>
-        </section>
-
-        <div class="nav-pie">
-          <a class="btn btn-secondary" href="#/decidimos"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-left"/></svg>Volver a las decisiones</a>
-          <a class="btn btn-secondary" href="#/inicio">Ir al inicio</a>
-        </div>
-        <div data-lsa="construimos"></div>
-      </section>
-
-      <!-- ================= AYUDA ================= -->
-      <section class="view" data-ruta-vista="ayuda" aria-labelledby="t-ayuda" hidden>
-        <h1 id="t-ayuda" tabindex="-1">Ayuda y privacidad</h1>
-        <p class="lead">Cómo se trabaja con este recurso, qué apoyos tiene y qué hace con tus datos.</p>
-
-        <section class="box" aria-labelledby="t-como">
-          <h2 id="t-como">Cómo se trabaja</h2>
-          <p>Es una <strong>simulación educativa ficticia</strong> para dos clases de 80 minutos. No es un examen: no hay puntajes ni respuestas correctas. La docente guía el intercambio con preguntas abiertas, cuida que se escuchen todas las voces y ayuda a sacar conclusiones. La idea no es hacer clic rápido, sino argumentar, dialogar y proponer.</p>
-          <div class="clases">
-            <div class="clase">
-              <h3>Clase 1 · 80 minutos</h3>
-              <ol>
-                <li><a href="#/caso">Notificación y presentación digital</a> · 10 min</li>
-                <li><a href="#/investigamos">Investigación en grupos</a> · 25 min</li>
-                <li>Debate sin pantallas · 20 min</li>
-                <li><a href="#/decidimos">Dilema y decisiones</a> · 25 min</li>
-              </ol>
-            </div>
-            <div class="clase">
-              <h3>Clase 2 · 80 minutos</h3>
-              <ol>
-                <li>Recuperar lo sucedido · 10 min</li>
-                <li><a href="#/decidimos">Explorar otros desenlaces</a> · 25 min</li>
-                <li><a href="#/construimos">Acuerdos colectivos</a> · 35 min</li>
-                <li>Reflexión final · 10 min</li>
-              </ol>
-            </div>
-          </div>
-          <p class="small muted">Los tiempos son orientativos. El sitio no tiene cronómetros ni límites de tiempo.</p>
-        </section>
-
-        <section class="box" aria-labelledby="t-apoyos">
-          <h2 id="t-apoyos">Apoyos para participar</h2>
-          <p>La idea es una experiencia compartida: todo el grupo usa la misma web, con los mismos contenidos.</p>
-          <table class="tabla">
-            <caption class="sr-only">Estado de cada apoyo de accesibilidad</caption>
-            <thead><tr><th scope="col">Apoyo</th><th scope="col">Qué hay</th><th scope="col">Estado</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">Texto más grande</th><td>Botones A− y A+, además del zoom del navegador.</td><td>Implementado</td></tr>
-              <tr><th scope="row">Alto contraste</th><td>Tema negro con letras blancas y botones amarillos.</td><td>Implementado</td></tr>
-              <tr><th scope="row">Menos movimiento</th><td>Ajuste propio y respeto de la preferencia del sistema.</td><td>Implementado</td></tr>
-              <tr><th scope="row">Teclado</th><td>Todo se maneja con Tab, Shift + Tab, Enter y Espacio. No hay acciones de arrastrar.</td><td>Implementado</td></tr>
-              <tr><th scope="row">Pulsador o sistema que emula teclas</th><td>Botones grandes y un barrido opcional que se puede pausar y detener.</td><td>Sin pruebas con hardware real</td></tr>
-              <tr><th scope="row">Lengua de Señas Argentina (LSA)</th><td>Todo el contenido está en texto. Hay un lugar preparado para videos en LSA realizados y revisados por una persona competente.</td><td><strong>Pendiente:</strong> todavía no hay videos en LSA</td></tr>
-              <tr><th scope="row">Comunicador (CAA)</th><td>No hace falta escribir para avanzar. Se puede elegir con botones grandes y conversar con apoyo de la docente.</td><td>Implementado (sin pictogramas propios)</td></tr>
-              <tr><th scope="row">Narración en voz</th><td>Opcional, con la voz del navegador, solo si el dispositivo la ofrece. Nunca empieza sola.</td><td>Depende del dispositivo</td></tr>
-            </tbody>
-          </table>
-          <p class="small muted">Para los intercambios en el aula, la planificación prevé mediación en LSA y apoyo al comunicador según los recursos reales de cada contexto.</p>
-        </section>
-
-        <section class="box" aria-labelledby="t-datos">
-          <h2 id="t-datos">Privacidad y datos guardados</h2>
-          <ul class="check-list">
-            <li>No hay cuentas, ni registro, ni anuncios, ni rastreo. Esta página no envía nada a ningún servidor.</li>
-            <li>Lo que elegís y escribís (decisiones, ideas, acuerdos y ajustes) se guarda <strong>solo en este navegador y este dispositivo</strong> (almacenamiento local).</li>
-            <li>No hace falta escribir nombres, DNI, fotos personales, usuarios de redes ni información sensible. Por favor, no lo hagas.</li>
-            <li>Si usás un dispositivo compartido, borrá los datos al terminar.</li>
-          </ul>
-          <div data-borrar></div>
-        </section>
-
-        <section class="box" aria-labelledby="t-fic">
-          <h2 id="t-fic">Sobre la ficción</h2>
-          <p>Sofi, Nico, Bruno, Lara y Mica son personajes inventados. La red social, el grupo «3.º B», los mensajes y la fotografía son ficticios: la imagen fue creada para esta simulación educativa y no muestra a personas reales. Ninguna sonrisa en una foto es un permiso para publicarla.</p>
-        </section>
-
-        <div class="nav-pie">
-          <a class="btn btn-secondary" href="#/inicio"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-left"/></svg>Volver al inicio</a>
-          <a class="btn btn-primary" href="#/caso">Comenzar<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-right"/></svg></a>
-        </div>
-      </section>
-
+    <main id="escena" tabindex="-1">
+      <div id="escenario" class="escenario"></div>
     </main>
+
+    <footer class="controles" id="controles">
+      <div class="controles-fila">
+        <button type="button" class="btn btn-secondary" id="btn-volver"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-left"/></svg><span id="volver-txt">Volver</span></button>
+        <div class="audio" id="audio" role="group" aria-label="Lectura en voz alta (opcional)">
+          <button type="button" class="btn btn-secondary" id="aud-play"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-speaker"/></svg><span id="aud-play-txt">Escuchar</span></button>
+          <button type="button" class="btn btn-secondary" id="aud-repetir" hidden><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-refresh"/></svg>Repetir</button>
+          <button type="button" class="btn btn-secondary" id="aud-stop" hidden><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-stop"/></svg>Detener</button>
+        </div>
+        <button type="button" class="btn btn-primary" id="btn-siguiente"><span id="sig-txt">Continuar</span><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-right"/></svg></button>
+      </div>
+      <p class="controles-nota small" id="controles-nota"></p>
+    </footer>
   </div>
 
-  <footer class="site-footer">
-    <p><strong>Simulación educativa ficticia.</strong> Todas las personas, nombres, publicaciones y la fotografía son inventados. Formación Ética y Ciudadana · 3.º año.</p>
-    <p class="small">Los datos se guardan solo en este dispositivo. <a href="#/ayuda">Ayuda y privacidad</a></p>
-  </footer>
-
-  <!-- Foto ampliada (diálogo nativo: Esc cierra, el foco queda dentro) -->
+  <!-- Foto ampliada -->
   <dialog id="dlg-foto" aria-labelledby="dlg-foto-t">
-    <div class="dlg-head">
-      <h2 id="dlg-foto-t">Foto de la publicación, ampliada</h2>
-      <button type="button" class="btn btn-primary" id="dlg-foto-cerrar"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-close"/></svg>Cerrar</button>
-    </div>
+    <div class="dlg-head"><h2 id="dlg-foto-t">Foto de la publicación, ampliada</h2>
+      <button type="button" class="btn btn-primary" data-cerrar><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-close"/></svg>Cerrar</button></div>
     <img id="dlg-foto-img" alt="" width="1448" height="1086">
     <p class="small" id="dlg-foto-cap"></p>
+  </dialog>
+
+  <!-- Accesibilidad -->
+  <dialog id="dlg-a11y" aria-labelledby="t-a11y">
+    <div class="dlg-head"><h2 id="t-a11y">Ajustes de accesibilidad</h2>
+      <button type="button" class="btn btn-primary" data-cerrar><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-close"/></svg>Cerrar</button></div>
+    <p class="muted">Sirven para todo el grupo y se guardan solo en este dispositivo.</p>
+    <div class="a11y-grid">
+      <div class="a11y-item">
+        <h3>Tamaño del texto</h3>
+        <div class="btn-row">
+          <button type="button" class="btn btn-secondary" id="p-a-menos"><span aria-hidden="true">A−</span><span class="sr-only">Texto más chico</span></button>
+          <button type="button" class="btn btn-secondary" id="p-a-mas"><span aria-hidden="true">A+</span><span class="sr-only">Texto más grande</span></button>
+          <button type="button" class="btn btn-secondary" id="p-a-reset">Tamaño normal</button>
+        </div>
+        <p class="small" id="tam-valor">Tamaño actual: 100 %</p>
+      </div>
+      <div class="a11y-item">
+        <h3 id="h-aspecto">Aspecto</h3>
+        <div class="btn-row" role="group" aria-labelledby="h-aspecto">
+          <button type="button" class="btn btn-secondary" data-tema="cine" aria-pressed="false">Cine oscuro</button>
+          <button type="button" class="btn btn-secondary" data-tema="claro" aria-pressed="false">Claro</button>
+          <button type="button" class="btn btn-secondary" data-tema="alto" aria-pressed="false">Alto contraste</button>
+        </div>
+        <p class="small">Alto contraste: fondo negro, letras blancas y botones amarillos.</p>
+      </div>
+      <div class="a11y-item">
+        <h3 id="h-movimiento">Reducir movimiento</h3>
+        <p class="small">Los mensajes y las escenas aparecen sin transiciones. La historia es exactamente la misma.</p>
+        <button type="button" class="switch" role="switch" aria-checked="false" id="sw-movimiento" aria-labelledby="h-movimiento"><span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span><span class="switch-state" aria-hidden="true">No</span></button>
+      </div>
+      <div class="a11y-item">
+        <h3 id="h-espaciado">Más espacio entre letras y líneas</h3>
+        <button type="button" class="switch" role="switch" aria-checked="false" id="sw-espaciado" aria-labelledby="h-espaciado"><span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span><span class="switch-state" aria-hidden="true">No</span></button>
+      </div>
+      <div class="a11y-item">
+        <h3 id="h-autoleer">Leer cada mensaje nuevo en voz alta</h3>
+        <p class="small">Opcional. Empieza apagado. Solo funciona si tu dispositivo tiene voz en español.</p>
+        <button type="button" class="switch" role="switch" aria-checked="false" id="sw-autoleer" aria-labelledby="h-autoleer"><span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span><span class="switch-state" aria-hidden="true">No</span></button>
+      </div>
+      <div class="a11y-item">
+        <h3>Velocidad de la voz</h3>
+        <label for="sel-vel" class="sr-only">Velocidad de la voz</label>
+        <select id="sel-vel" class="select"><option value="0.8">Lenta</option><option value="1" selected>Normal</option><option value="1.2">Rápida</option></select>
+      </div>
+      <div class="a11y-item a11y-wide">
+        <h3 id="h-barrido">Barrido automático (opcional, experimental)</h3>
+        <p class="small">Para quien usa un pulsador o un sistema que emula teclas: el foco avanza solo, de a un botón, y se acciona con <kbd>Enter</kbd> o <kbd>Espacio</kbd>. Se puede pausar y detener. El teclado funciona igual. <strong>Todavía no se probó con un pulsador real.</strong> No se detiene en los cuadros de texto: escribir siempre es opcional.</p>
+        <div class="btn-row">
+          <button type="button" class="switch" role="switch" aria-checked="false" id="sw-barrido" aria-labelledby="h-barrido"><span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span><span class="switch-state" aria-hidden="true">No</span></button>
+          <label for="sel-barrido" class="inline-label">Ritmo:</label>
+          <select id="sel-barrido" class="select"><option value="2000">Rápido (2 s)</option><option value="3000" selected>Normal (3 s)</option><option value="5000">Lento (5 s)</option><option value="8000">Muy lento (8 s)</option></select>
+        </div>
+      </div>
+      <div class="a11y-item a11y-wide">
+        <h3>Teclado</h3>
+        <ul class="small keys"><li><kbd>Tab</kbd> y <kbd>Shift</kbd> + <kbd>Tab</kbd>: siguiente o anterior.</li><li><kbd>Enter</kbd> o <kbd>Espacio</kbd>: activar el botón.</li><li><kbd>Esc</kbd>: cerrar un cuadro o el panel de etapas.</li></ul>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- LSA -->
+  <dialog id="dlg-lsa" aria-labelledby="t-lsa">
+    <div class="dlg-head"><h2 id="t-lsa">Apoyo en Lengua de Señas Argentina (LSA)</h2>
+      <button type="button" class="btn btn-primary" data-cerrar><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-close"/></svg>Cerrar</button></div>
+    <div id="lsa-contenido"></div>
+  </dialog>
+
+  <!-- Ayuda y privacidad -->
+  <dialog id="dlg-ayuda" aria-labelledby="t-ayuda">
+    <div class="dlg-head"><h2 id="t-ayuda">Ayuda y privacidad</h2>
+      <button type="button" class="btn btn-primary" data-cerrar><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-close"/></svg>Cerrar</button></div>
+    <section aria-labelledby="h-como">
+      <h3 id="h-como">Cómo se usa</h3>
+      <p>Es una <strong>simulación educativa ficticia</strong> para dos clases de 80 minutos. No es un examen: no hay puntajes ni respuestas correctas. La historia avanza solo cuando el grupo toca <strong>Continuar</strong>: no hay temporizadores. Con <strong>Volver</strong> se retrocede un paso, y con <strong>Etapas</strong> la docente puede ir a cualquier escena. Participar hablando, en LSA o con un comunicador es igual de válido que escribir.</p>
+      <div class="clases" id="ayuda-clases"></div>
+    </section>
+    <section aria-labelledby="h-apoyos">
+      <h3 id="h-apoyos">Apoyos y su estado</h3>
+      <div class="tabla-wrap"><table class="tabla">
+        <caption class="sr-only">Estado de cada apoyo de accesibilidad</caption>
+        <thead><tr><th scope="col">Apoyo</th><th scope="col">Qué hay</th><th scope="col">Estado</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Texto más grande y más espacio</th><td>A−/A+, espaciado y zoom del navegador.</td><td>Implementado</td></tr>
+          <tr><th scope="row">Aspecto y alto contraste</th><td>Cine oscuro, claro y alto contraste real.</td><td>Implementado</td></tr>
+          <tr><th scope="row">Reducir movimiento</th><td>Ajuste propio y respeto de la preferencia del sistema. Misma historia sin transiciones.</td><td>Implementado</td></tr>
+          <tr><th scope="row">Teclado</th><td>Todo con Tab, Shift + Tab, Enter y Espacio. Sin arrastrar.</td><td>Implementado</td></tr>
+          <tr><th scope="row">Lectura en voz alta</th><td>Opcional, con la voz del navegador: escuchar, pausar, repetir y detener.</td><td>Depende del dispositivo</td></tr>
+          <tr><th scope="row">Pulsador o sistema que emula teclas</th><td>Controles grandes y barrido opcional.</td><td>Sin pruebas con hardware real</td></tr>
+          <tr><th scope="row">Lengua de Señas Argentina</th><td>Todo está en texto. Hay un lugar preparado para videos realizados y revisados por una persona competente.</td><td><strong>Pendiente:</strong> todavía no hay videos en LSA</td></tr>
+          <tr><th scope="row">Sonido</th><td>La simulación no usa sonidos.</td><td>—</td></tr>
+        </tbody></table></div>
+    </section>
+    <section aria-labelledby="h-datos">
+      <h3 id="h-datos">Privacidad y datos guardados</h3>
+      <ul class="check-list">
+        <li>No hay cuentas, ni anuncios, ni rastreo. Esta página no envía nada a ningún servidor.</li>
+        <li>Lo que elegís y escribís se guarda <strong>solo en este navegador y este dispositivo</strong>.</li>
+        <li>No escribas nombres reales, DNI, fotos personales, usuarios de redes ni información sensible.</li>
+        <li>Si el dispositivo es compartido, borrá los datos al terminar.</li>
+      </ul>
+      <div data-borrar></div>
+    </section>
+    <section aria-labelledby="h-fic">
+      <h3 id="h-fic">Sobre la ficción</h3>
+      <p>Sofi, Nico, Bruno, Lara y Mica son personajes inventados. La red social, el grupo «3.º B», los mensajes y la fotografía son ficticios: la imagen fue creada para esta simulación y no muestra a personas reales. Una sonrisa en una foto no es un permiso para publicarla.</p>
+    </section>
   </dialog>
 
   <!-- Hoja que se usa SOLO al imprimir el decálogo -->
@@ -548,6 +232,5 @@
 
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
-  <script src="js/experiencia-visual.js"></script>
 </body>
 </html>

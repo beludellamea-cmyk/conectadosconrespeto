@@ -1,70 +1,45 @@
 # CONECTADOS CON RESPETO — Una foto, cientos de miradas
 
-Simulación educativa ficticia y accesible para **Formación Ética y Ciudadana, 3.º año** (Argentina). Tema: convivencia digital, consentimiento para compartir imágenes, privacidad, respeto y análisis de conductas que pueden constituir ciberacoso.
+Historia interactiva accesible para **Formación Ética y Ciudadana, 3.º año** (Argentina).
+Es una simulación **ficticia**: una foto del grupo se comparte sin permiso y empieza a circular.
+El estudiantado investiga, decide y construye un decálogo de convivencia digital.
 
-Es un sitio estático: **HTML + CSS + JavaScript sin dependencias, sin servidor, sin cuentas, sin claves y sin conexión a servicios externos** (la tipografía y la foto están incluidas en el proyecto).
+Sitio estático (HTML + CSS + JavaScript sin dependencias). Sin servidor, sin cuentas, sin analíticas, sin red.
+Todo se guarda **solo en el dispositivo** (localStorage). No hay sonidos.
 
-## Estructura
+## Las 8 escenas
+1. Inicio · 2. Notificación · 3. La foto · 4. Los mensajes (uno por uno, nunca desaparecen) ·
+5. La historia se detiene («¿Qué está pasando acá?») · 6. Investigamos (pistas, línea de tiempo, conceptos, señales) ·
+7. Decidimos (3 opciones, consecuencia en texto + dibujo, reflexión, sin puntajes) · 8. Construimos (decálogo editable, imprimir/descargar).
 
-```
-index.html                  Estructura de todas las pantallas
-css/styles.css              Estilos (colores por variables; alto contraste real)
-js/data.js                  TODOS los textos del caso + punto de inserción de videos LSA
-js/app.js                   Lógica: navegación, decisiones, decálogo, ajustes, narración, barrido
-assets/img/                 Foto ficticia del caso (.webp) y favicon
-assets/fonts/               Atkinson Hyperlegible (licencia OFL incluida)
-datos/caso_educativo.json   Copia de referencia del caso (no la lee el sitio)
-README.md
-ACCESIBILIDAD_PRUEBAS.md    Qué se implementó, qué se verificó y qué falta
-```
+Nada avanza solo: se avanza con «Continuar» / «Volver». El botón **Etapas** (docente) salta a cualquier escena o decisión.
 
-## Abrir localmente
-Hacé doble clic en `index.html` (funciona sin servidor). Si preferís un servidor local:
-
-```
-python3 -m http.server 8000
-# y abrir http://localhost:8000/
-```
+## Ejecutar
+- Abrir `index.html` con doble clic (funciona por `file://`), o
+- `python3 -m http.server` y abrir `http://localhost:8000`.
 
 ## Publicar en GitHub Pages
-1. Creá un repositorio en GitHub (por ejemplo `conectados-con-respeto`).
-2. Subí **el contenido** de esta carpeta a la raíz del repositorio (que `index.html` quede en la raíz).
-3. En el repositorio: **Settings → Pages → Build and deployment → Source: Deploy from a branch**, rama `main`, carpeta `/ (root)`. Guardá.
-4. En uno o dos minutos la página queda en `https://TU-USUARIO.github.io/conectados-con-respeto/`.
+Subir el contenido de esta carpeta a la raíz del repositorio (reemplazando lo anterior, incluidos `css/experiencia-visual.css` y `js/experiencia-visual.js`, que ya no se usan) y activar Pages (Settings → Pages → rama `main`, carpeta `/root`). Todas las rutas son relativas.
 
-Todas las rutas son **relativas** y la navegación usa `#/seccion`, así que funciona en la subcarpeta de GitHub Pages. Se probó en un servidor local dentro de una subcarpeta y abriendo el archivo directamente. Todavía no se probó en un repositorio real de GitHub Pages: hacelo y revisá que se vean la foto y la tipografía.
+## Estructura
+```
+index.html            estructura y diálogos
+css/styles.css        estilos (3 aspectos: cine, claro, alto contraste)
+js/data.js            TODOS los textos del caso (editar acá)
+js/app.js             motor de escenas
+assets/               foto ficticia, fuente Atkinson Hyperlegible (OFL), favicon
+datos/caso_educativo.json   copia del caso en JSON
+```
 
-## Cómo modificar textos e imágenes
-- **Textos del caso, comentarios, glosario, decisiones y acuerdos sugeridos:** `js/data.js`.
-- **Títulos, explicaciones y avisos de cada pantalla:** `index.html`.
-- **Tarjetas de «Investigamos»:** función `investigationCards()` en `js/app.js`.
-- **Foto:** reemplazá `assets/img/foto_grupo_ficticio.webp` (o cambiá `image.src` en `data.js`) y actualizá `image.alt` y `image.longDescription` para describir la nueva imagen. Usá solo imágenes ficticias o con autorización.
-- **Colores:** variables al comienzo de `css/styles.css`.
+## Editar contenidos
+Los textos están en `js/data.js` (`window.CASO` y `CASO.historia`). Mantener sincronizado `datos/caso_educativo.json` si se usa.
 
-## Agregar un video en LSA (cuando exista)
-Hoy **no hay videos en Lengua de Señas Argentina**, y el sitio lo dice. Cuando una persona competente en LSA grabe y revise un video:
-1. Copiá el archivo a `assets/lsa/` (por ejemplo `caso.mp4`, y opcionalmente subtítulos `.vtt`).
-2. En `js/data.js`, completá la entrada de la sección en `window.CASO_LSA` (hay un ejemplo comentado). Se mostrará un reproductor con controles, subtítulos opcionales y transcripción, sin reproducción automática.
+## Videos en LSA
+No hay videos en LSA todavía y **no se simulan**. Los espacios están listos: en `js/data.js`, `window.CASO_LSA`
+tiene una clave por escena (`inicio`, `notificacion`, `foto`, `mensajes`, `pausa`, `investigamos`, `decidimos`, `construimos`).
+Reemplazar `null` por `{ src: "assets/lsa/foto.mp4", captions: "…vtt", transcript: "…", credit: "…" }` cuando una persona competente en LSA grabe y revise el video.
 
-## Datos y privacidad
-No se piden nombres ni datos personales. Decisiones, ideas, acuerdos y ajustes se guardan en `localStorage` **solo en el dispositivo**. Hay un botón «Borrar mis datos guardados» con confirmación (en «Construimos» y en «Ayuda y privacidad»). **No hay colaboración en tiempo real**: los equipos trabajan presentes en el aula.
-
-## Créditos
-- Foto ficticia creada para la simulación educativa (paquete del proyecto).
-- Tipografía Atkinson Hyperlegible © Braille Institute of America, licencia SIL OFL 1.1 (`assets/fonts/LICENSE-Atkinson-Hyperlegible.txt`).
-- Íconos dibujados a mano como SVG en línea.
-
-
-## Mejora visual e interacción de decisiones (noviembre 2026)
-- `css/experiencia-visual.css` y `js/experiencia-visual.js` añaden diseño de publicación simulada y comentarios con pistas visuales, tarjetas de decisión, lectura optativa de opciones y confirmación antes de ver consecuencias.
-- Las mejoras complementan la accesibilidad existente: textos reales, teclado, contraste, ampliación, comunicación CAA y ausencia de tiempos límite. Los emojis se acompañan de texto y no son la única señal.
-- La síntesis de voz depende de la disponibilidad de voces del navegador; la LSA auténtica y la prueba con pulsador físico siguen pendientes.
-- Comprobar en el sitio publicado la lectura, el recorrido con Tab/Enter, zoom, pantalla móvil y compatibilidad con el barrido experimental.
-
-
-## Interfaz de descubrimiento progresivo (11/11/2026)
-- La presentación sigue el recorrido: Inicio → El caso (publicación, cinco comentarios y dos preguntas de a uno) → Investigamos (cuatro evidencias, conceptos y debate por etapas) → Decidimos (un dilema por vez, confirmar selección antes de leer la consecuencia) → Construimos (una sugerencia de acuerdo visible cada vez).
-- «Cambiar etapa» permite a la docente saltar entre los cuatro momentos sin bloquear participantes. No hay temporizadores ni puntajes.
-- «Escuchar / Pausar / Repetir» lee el contenido visible del momento, según la voz en español que ofrezca el dispositivo; el texto sigue disponible para todos.
-- Accesibilidad original conservada: A+/A− desde ajustes, contraste, teclado, barrido experimental, fotos descriptas y lugares preparados para videos auténticos en LSA.
-- Pendiente: prueba manual con NVDA, pulsador real, dispositivos móviles y materiales LSA.
+## Accesibilidad (resumen)
+Teclado completo, foco visible, lectura en voz alta opcional en español, tamaño de texto A+/A−, tres aspectos incluido alto contraste,
+«Reducir movimiento» (la historia queda idéntica, sin animaciones), emojis siempre con texto, sin límites de tiempo,
+barrido automático experimental opcional. Ver `ACCESIBILIDAD_PRUEBAS.md`: se apunta a WCAG 2.2 AA pero **no se declara cumplimiento**.

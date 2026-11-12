@@ -193,9 +193,9 @@ window.CASO = {
    dice abiertamente (no hay avatar ni "traducción" simulada).
 
    Cuando una persona competente en LSA grabe y revise un video para una
-   sección, copiá el archivo a assets/lsa/ y completá la entrada, por ejemplo:
+   escena (claves: inicio, notificacion, foto, mensajes, pausa, investigamos, decidimos, construimos), copiá el archivo a assets/lsa/ y completá la entrada, por ejemplo:
 
-     caso: {
+     foto: {
        src: "assets/lsa/caso.mp4",
        poster: "assets/lsa/caso.jpg",          // opcional
        captions: "assets/lsa/caso.es.vtt",     // opcional (subtítulos en español)
@@ -208,8 +208,105 @@ window.CASO = {
    ========================================================================== */
 window.CASO_LSA = {
   inicio: null,
-  caso: null,
+  notificacion: null,
+  foto: null,
+  mensajes: null,
+  pausa: null,
   investigamos: null,
   decidimos: null,
   construimos: null
+};
+
+/* ==========================================================================
+   MATERIAL NARRATIVO (lo que se cuenta y se explora en cada escena).
+   Los mensajes del caso están arriba (post y comments). Acá se agregan:
+   etiquetas de tono con emoji (siempre acompañadas de texto), la línea de
+   tiempo, lo que sabemos / falta, los conceptos y las señales a analizar.
+   Todo es texto real: ningún texto importante va dentro de una imagen.
+   ========================================================================== */
+window.CASO.historia = {
+  /* Tono de cada mensaje. El emoji es solo un apoyo visual: el texto dice lo mismo. */
+  tonos: {
+    post: { emoji: "📸", etiqueta: "comparte la foto" },
+    c0: { emoji: "🙏", etiqueta: "pide que la retiren" },
+    c1: { emoji: "🙄", etiqueta: "minimiza el pedido" },
+    c2: { emoji: "📲", etiqueta: "avisa que la imagen llegó a otro grupo" },
+    c3: { emoji: "🤝", etiqueta: "propone respetar a Sofi" },
+    c4: { emoji: "✋", etiqueta: "vuelve a pedir que pare" }
+  },
+  /* Descripción en palabras de los emojis que aparecen dentro de los mensajes */
+  emojisEnTexto: {
+    post: "😅 significa: cara sonriendo con una gota de sudor.",
+    c1: "🙄 significa: cara con los ojos en blanco."
+  },
+  colores: { Nico: "#1D4ED8", Sofi: "#6D28D9", Bruno: "#0F766E", Lara: "#BE185D", Mica: "#B45309" },
+
+  escenas: [
+    { id: "inicio", nombre: "Inicio" },
+    { id: "notificacion", nombre: "Una notificación" },
+    { id: "foto", nombre: "La foto" },
+    { id: "mensajes", nombre: "Los mensajes" },
+    { id: "pausa", nombre: "La historia se detiene" },
+    { id: "investigamos", nombre: "Investigamos" },
+    { id: "decidimos", nombre: "Decidimos" },
+    { id: "construimos", nombre: "Construimos" }
+  ],
+
+  /* Qué pasó, en orden (una pista por vez) */
+  linea: [
+    { hora: "08:05", quien: "Nico", que: "Comparte la foto del grupo.", cita: "Les dejo la foto que sacamos en el recreo 😅" },
+    { hora: "08:07", quien: "Sofi", que: "Pide que la borren.", cita: "No quería que subieran esa foto. ¿La podés borrar, por favor?" },
+    { hora: "08:10", quien: "Bruno", que: "Minimiza el pedido.", cita: "Qué exagerada, si es una foto nada más 🙄" },
+    { hora: "08:13", quien: "Lara", que: "Avisa que la foto ya pasó a otro grupo.", cita: "Ya la pasaron a otro grupo. Me llegó recién." },
+    { hora: "08:17", quien: "Mica", que: "Propone respetar el pedido de Sofi.", cita: "Si Sofi pidió que la borren, tenemos que respetarla." },
+    { hora: "08:20", quien: "Sofi", que: "Vuelve a pedir que pare.", cita: "No me gusta que sigan compartiéndola. Quiero que pare." }
+  ],
+
+  sabemos: [
+    "La foto se publicó en el grupo.",
+    "Sofi pidió dos veces que la retiren y que paren.",
+    "Hubo un comentario que minimizó el pedido.",
+    "La foto llegó a otro grupo.",
+    "Una persona propuso respetar a Sofi."
+  ],
+  falta: [
+    "¿Se le preguntó a Sofi antes de publicar?",
+    "¿Hasta dónde llegó la foto y quién la reenvió?",
+    "¿Cómo se siente Sofi y qué necesita ahora?",
+    "¿Esto ya pasó antes o es la primera vez?",
+    "¿Qué hicieron las demás personas que la vieron?"
+  ],
+
+  /* Conceptos: definición (del glosario) + qué se ve en este caso */
+  conceptos: [
+    { clave: "Consentimiento", enElCaso: "Sofi pidió que borren la foto: dejó claro que no estaba de acuerdo con que se publicara." },
+    { clave: "Privacidad", enElCaso: "La imagen ya salió del grupo original y Sofi no puede decidir adónde llega." },
+    { clave: "Respeto", enElCaso: "Mica propone respetar el pedido de Sofi; Bruno lo minimiza. Dos formas distintas de responder." },
+    { clave: "Difusión sin consentimiento", enElCaso: "La foto se compartió y después pasó a otro grupo. En la publicación no se ve ninguna consulta previa." },
+    { clave: "Ciberacoso", etiqueta: "Posible ciberacoso", enElCaso: "Hay circulación que se amplía, un pedido que se repite y un comentario despectivo. Eso habilita analizar un posible ciberacoso, pero todavía faltan datos: no se etiqueta de apuro." }
+  ],
+
+  /* Señales para analizar si hay hostigamiento (se muestran al seleccionarlas) */
+  senales: [
+    { clave: "Reiteración", pregunta: "¿Pasó una sola vez o se repite?", evidencia: "Sofi pidió dos veces que pare (08:07 y 08:20) y la foto siguió circulando hasta otro grupo. ¿Pasó antes? No lo sabemos todavía." },
+    { clave: "Intención", pregunta: "¿Se busca molestar o dañar?", evidencia: "Nico escribió «Les dejo la foto…». Bruno restó importancia al pedido. ¿Querían molestar o no lo pensaron? Falta información." },
+    { clave: "Contexto", pregunta: "¿Qué relación hay y quién mira?", evidencia: "Es un grupo escolar (3.º B). Hay personas que escriben y otras que solo miran: no sabemos qué hicieron." },
+    { clave: "Efectos", pregunta: "¿Cómo puede afectar y qué pidió la persona?", evidencia: "Sofi dice que no le gusta y quiere que pare. Falta saber cómo se siente y qué necesita." }
+  ],
+  conclusionAcoso: "Compartir una foto sin permiso vulnera el consentimiento y la privacidad. Para hablar de ciberacoso hay que analizar reiteración, intención, contexto y efectos, sin etiquetar de apuro.",
+
+  /* Ilustración simple de cada consecuencia: tipo de dibujo */
+  dibujos: {
+    reenviar: "propaga",
+    no_intervenir: "sola",
+    acompanar: "rodea",
+    insultar: "conflicto",
+    buscar_ayuda: "ayuda",
+    ignorar: "sigue"
+  },
+
+  clases: {
+    uno: ["Notificación y presentación digital · 10 min", "Investigación en grupos · 25 min", "Debate sin pantallas · 20 min", "Dilema y decisiones · 25 min"],
+    dos: ["Recuperar lo sucedido · 10 min", "Explorar otros desenlaces · 25 min", "Acuerdos colectivos · 35 min", "Reflexión final · 10 min"]
+  }
 };
